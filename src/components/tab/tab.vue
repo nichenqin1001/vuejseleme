@@ -1,14 +1,20 @@
 <template>
   <div class="tab">
-    <div class="tab__item">商品</div>
-    <div class="tab__item">评论</div>
-    <div class="tab__item">商家</div>
+    <div class="tab__item"><a v-link="{path:'/goods'}">商品</a></div>
+    <div class="tab__item"><a v-link="{path:'/ratings'}">评价</a></div>
+    <div class="tab__item"><a v-link="{path:'/seller'}">商家</a></div>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
+import content from '../content/content'
+
 export default {
-  name: 'tab'
+  name: 'tab',
+  components: {
+    'v-content':content
+  }
 }
 </script>
 

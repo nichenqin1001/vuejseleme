@@ -10,7 +10,8 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "vue": "^2.1.0",
+    "vue-router": "^2.2.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -41,6 +42,7 @@
     "http-proxy-middleware": "^0.17.2",
     "json-loader": "^0.5.4",
     "node-sass": "^4.4.0",
+    "normalize.css": "^5.0.0",
     "opn": "^4.0.2",
     "ora": "^0.3.0",
     "sass-loader": "^4.1.1",
