@@ -1,17 +1,19 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <v-header></v-header>
+    <v-tab></v-tab>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello'
+import header from './components/header/header'
+import tab from './components/tab/tab'
 
 export default {
   name: 'app',
   components: {
-    Hello
+    'v-header': header,
+    'v-tab': tab
   }
 }
 </script>
