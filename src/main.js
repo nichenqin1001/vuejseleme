@@ -3,12 +3,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import App from './App'
+import goods from './components/content/goods'
+import ratings from './components/content/ratings'
+import seller from './components/content/seller'
 
 Vue.use(VueRouter)
 
-/* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  template: '<App/>',
-  components: { App }
+const routes = [
+  { path: '/goods', component: goods },
+  { path: '/ratings', component: ratings },
+  { path: '/seller', component: seller }
+]
+
+const router = new VueRouter({
+  routes,
+  linkActiveClass: 'tab-active'
 })
+
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount('#app')
