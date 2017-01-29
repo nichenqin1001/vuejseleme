@@ -8,6 +8,8 @@ import goods from 'components/content/goods'
 import ratings from 'components/content/ratings'
 import seller from 'components/content/seller'
 
+import 'common/scss/index.scss'
+
 Vue.use(VueRouter)
 Vue.use(VueResource)
 
