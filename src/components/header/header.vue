@@ -25,7 +25,11 @@
         <span class="header__notice-detail_count">{{seller.supports.length}}个<i class="icon-keyboard_arrow_right"></i></span>
       </div>
     </div>
-    <div class="header__bulletin"></div>
+    <div class="header__bulletin">
+      <span class="header__bulletin-brand"></span>
+      <span class="header__bulletin-text">{{seller.bulletin}}</span>
+      <i class="icon-keyboard_arrow_right"></i>
+    </div>
   </div>
 </template>
 <script>
@@ -37,6 +41,7 @@
 </script>
 <style lang="scss">
   .header {
+    text-align: left;
     color: #fff;
     background: #999;
     @at-root {
@@ -51,6 +56,7 @@
               height: 64px;
               width: 64px;
               border-radius: 2px;
+              margin-right: 4px;
             }
           }
           #{&}-content {
@@ -143,6 +149,34 @@
                 }
               }
             }
+          }
+        }
+      }
+      #{&}__bulletin {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 12px;
+        background: rbga(7, 17, 27, 0.2);
+        @at-root {
+          #{&}-brand {
+            display: inline-block;
+            margin-right: 4px;
+            min-width: 22px;
+            height: 12px;
+            background: url('bulletin@2x.png') no-repeat;
+            background-size: contain;
+          }
+          #{&}-text {
+            white-space: nowrap;
+            overflow: hidden;
+            font-size: 10px;
+            text-overflow: ellipsis;
+          }
+          .icon-keyboard_arrow_right {
+            font-size: 10px;
           }
         }
       }
