@@ -3,3 +3,16 @@ html {
   font-weight: 200;
   line-height: 1;
 }
+
+.clearfix{
+  display: inline-block;
+  &::before,
+  &::after{
+    display: block;
+    content: "";
+    height: 0;
+  }
+  &::after{
+    clear: both;
+  }
+}

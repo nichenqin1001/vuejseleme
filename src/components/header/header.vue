@@ -20,30 +20,65 @@
           <span v-if="seller.supports[0].type==4" class="header__notice-content__supports_icon header__notice-content__supports_icon_i_5"></span>
           <span class="header__notice-content__supports_text">{{seller.supports[0].description}}</span>
         </div>
-      </div>
-      <div v-if="seller.supports" class="header__notice-detail">
-        <span class="header__notice-detail_count">{{seller.supports.length}}个<i class="icon-keyboard_arrow_right"></i></span>
+        <div v-if="seller.supports" class="header__notice-detail" v-on:click="showDetail">
+          <span class="header__notice-detail_count">{{seller.supports.length}}个<i class="icon-keyboard_arrow_right"></i></span>
+        </div>
       </div>
     </div>
-    <div class="header__bulletin">
+    <!--header__notice-->
+    <div class="header__bulletin" v-on:click="showDetail">
       <span class="header__bulletin-brand"></span>
       <span class="header__bulletin-text">{{seller.bulletin}}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
+    <!--header__bulletin-->
+    <div class="header__background">
+      <img :src="seller.avatar" alt="">
+    </div>
+    <!--header__background-->
+    <div v-show="coverShow" class="header__cover">
+      <div class="header__cover-content">
+        <h1 class="header__cover-content_name">{{seller.name}}</h1>
+        <v-star v-bind:score="seller.score"></v-star>
+      </div>
+      <footer class="header__cover-close">
+        <i class="icon-close" v-on:click="hideDetail"></i>
+      </footer>
+    </div>
   </div>
 </template>
 <script>
+  import star from 'components/star/star'
+
   export default {
     name: 'header',
-    props: ['seller']
+    data() {
+      return {
+        coverShow: false
+      }
+    },
+    props: ['seller'],
+    methods: {
+      showDetail() {
+        this.coverShow = true
+      },
+      hideDetail() {
+        this.coverShow = false
+      }
+    },
+    components: {
+      'v-star': star
+    }
   }
 
 </script>
 <style lang="scss">
   .header {
+    position: relative;
     text-align: left;
     color: #fff;
-    background: #999;
+    background: rgba(7, 17, 27, 0.2);
+    overflow: hidden;
     @at-root {
       #{&}__notice {
         position: relative;
@@ -159,7 +194,7 @@
         height: 28px;
         line-height: 28px;
         padding: 0 12px;
-        background: rbga(7, 17, 27, 0.2);
+        background: rbga(7, 17, 27, 0.5);
         @at-root {
           #{&}-brand {
             display: inline-block;
@@ -177,6 +212,51 @@
           }
           .icon-keyboard_arrow_right {
             font-size: 10px;
+          }
+        }
+      }
+      #{&}__background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+        filter: blur(10px);
+        img {
+          width: 100%;
+        }
+      }
+      #{&}__cover {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        min-height: 100vh;
+        overflow: auto;
+        background: rgba(7, 17, 27, 0.8);
+        text-align: center;
+        @at-root {
+          #{&}-content {
+            flex: 1;
+            padding-top: 64px;
+            @at-root {
+              #{&}_name {
+                font-size: 16px;
+                line-height: 16px;
+                font-weight: 700;
+              }
+            }
+          }
+          #{&}-close {
+            margin-bottom: 20px;
+            .icon-close::before {
+              font-size: 40px;
+            }
           }
         }
       }

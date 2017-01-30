@@ -26,7 +26,6 @@
         response = response.body
         if (response.errno === ERR_OK) {
           this.seller = response.data
-          console.log(this.seller)
         }
       })
     },
@@ -44,7 +43,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
   }
 
   .tabs {
@@ -52,6 +50,7 @@
     width: 100%;
     height: 40px;
     line-height: 40px;
+    margin: 0;
     @include border-1px(rgba(7, 17, 27, 0.1));
     @at-root {
       #{&}__tab-item {
