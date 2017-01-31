@@ -1,6 +1,6 @@
 <template>
   <div class="stars">
-    <div class="stars__star" v-for="(star,index) in stars" track-by="$index">
+    <div class="stars__star" v-for="(star,index) in stars">
       <span v-if="stars[index]==1" class="stars__star_item"><img src="./star48_on@2x.png" alt=""></span>
       <span v-if="stars[index]==2" class="stars__star_item"><img src="./star48_half@2x.png" alt=""></span>
       <span v-if="stars[index]==0" class="stars__star_item"><img src="./star48_off@2x.png" alt=""></span>
