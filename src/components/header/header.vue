@@ -36,15 +36,34 @@
       <img :src="seller.avatar" alt="">
     </div>
     <!--header__background-->
-    <div v-show="coverShow" class="header__cover">
-      <div class="header__cover-content">
-        <h1 class="header__cover-content_name">{{seller.name}}</h1>
-        <v-star v-bind:score="seller.score"></v-star>
+    <transition name="custom-classes-transition"
+    enter-active-class="animated slideInLeft"
+    leave-active-class="animated slideOutLeft">
+      <div v-show="coverShow" class="header__cover">
+        <div class="header__cover-content">
+          <h1 class="header__cover-content_name">{{seller.name}}</h1>
+          <div class="header__cover-content_star">
+            <v-star v-bind:score="seller.score"></v-star>
+          </div>
+          <div class="header__cover-content_title">
+            <div class="header__cover-content_title_text">优惠信息</div>
+          </div>
+          <ul class="header__cover-content_supports" v-if="seller.supports">
+            <li class="header__cover-content_supports_support" v-for="(support,index) in seller.supports">
+              <img :class="'icon-'+clsMap[support.type]" alt="" class="header__cover-content_supports_support_icon">
+              <span class="header__cover-content_supports_support_text">{{support.description}}</span>
+            </li>
+          </ul>
+          <div class="header__cover-content_title">
+            <div class="header__cover-content_title_text">商家公告</div>
+          </div>
+          <div class="header__cover-content_bulletin">{{seller.bulletin}}</div>
+        </div>
+        <footer class="header__cover-close">
+          <i class="icon-close" v-on:click="hideDetail"></i>
+        </footer>
       </div>
-      <footer class="header__cover-close">
-        <i class="icon-close" v-on:click="hideDetail"></i>
-      </footer>
-    </div>
+    </transition>
   </div>
 </template>
 <script>
@@ -54,7 +73,8 @@
     name: 'header',
     data() {
       return {
-        coverShow: false
+        coverShow: false,
+        clsMap: ['decrease', 'discount', 'guarantee', 'invoice', 'special']
       }
     },
     props: ['seller'],
@@ -73,6 +93,7 @@
 
 </script>
 <style lang="scss">
+  @import '../../common/scss/base.scss';
   .header {
     position: relative;
     text-align: left;
@@ -249,6 +270,60 @@
                 font-size: 16px;
                 line-height: 16px;
                 font-weight: 700;
+              }
+              #{&}_star {
+                margin: 20px 0;
+              }
+              #{&}_title {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 20px auto;
+                width: 80%;
+                &::before,
+                &::after {
+                  @extend .pseudo-element;
+                  flex: 1;
+                  border: 1px solid rgba(255, 255, 255, 0.2)
+                }
+                @at-root {
+                  #{&}_text {
+                    padding: 0 12px;
+                    font-size: 14px;
+                    font-weight: 700;
+                  }
+                }
+              }
+              #{&}_supports {
+                list-style: none;
+                text-align: left;
+                @at-root {
+                  #{&}_support {
+                    display: flex;
+                    align-items: center;
+                    height: 40px;
+                    line-height: 40px;
+                    font-size: 14px;
+                    img {
+                      width: 24px;
+                      height: 24px;
+                      margin-right: 10px;
+                    }
+                    @at-root {
+                      #{&}_text {
+                        font-weight: 400;
+                      }
+                    }
+                  }
+                }
+              }
+              #{&}_bulletin {
+                width: 80%;
+                margin: 0 auto;
+                text-align: left;
+                line-height: 24px;
+                font-size: 14px;
+                text-indent: 28px;
               }
             }
           }
