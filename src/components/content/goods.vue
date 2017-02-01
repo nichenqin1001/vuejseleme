@@ -2,7 +2,7 @@
   <div class="goods">
     <div class="menu" ref="menuScroll">
       <ul class="menu__goods">
-        <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList">
+        <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList" :class="{'menu-active':currentScreenIndex===index}">
           <span class="menu__goods_good_text">
             <span v-if="good.type>0" class="menu__goods_good_icon" :class="'icon-'+clsMap[good.type]"></span> {{good.name}}
           </span>
@@ -55,7 +55,6 @@
         if (response.errno === ERR_OK) {
           this.goods = response.data
           this.$nextTick(() => {
-            this._setMenuBackground()
             this._initScroll()
           })
         }
@@ -70,8 +69,6 @@
         this.foodsScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
           this._getCurrentScreenIndex()
-          this._setMenuBackground()
-          console.log(this.currentScreenIndex)
         })
       },
       _getCurrentScreenIndex() {
@@ -83,13 +80,6 @@
           }
           this.currentScreenIndex = i
         }
-      },
-      _setMenuBackground() {
-        var menuList = this.$refs.menuList
-        menuList.forEach(function (menu) {
-          menu.classList.remove('menu-active')
-        })
-        menuList[this.currentScreenIndex].classList.add('menu-active')
       }
     }
   }
@@ -111,20 +101,19 @@
         #{&}__goods {
           list-style: none;
           margin: 0 auto;
-          padding: 0 10px;
+          padding: 0;
           @at-root {
             #{&}_good {
               display: flex;
               flex-flow: column;
               align-items: center;
               justify-content: center;
+              box-sizing: border-box;
+              padding: 0 10px;
               text-align: left;
-              width: 56px;
+              width: 100%;
               height: 59px;
               border-bottom: 1px solid rgba(7, 17, 27, 0.1);
-              &.menu-active{
-                background: white;
-              }
               @at-root {
                 #{&}_text {
                   display: inline-block;
@@ -140,6 +129,11 @@
             }
           }
         }
+      }
+      .menu-active {
+        background: white;
+        border-bottom: none;
+        font-weight: 700;
       }
     }
     .foods {
@@ -208,7 +202,7 @@
                         }
                         #{&}_old {
                           font-size: 10px;
-                          color: rgb(147,153,159);
+                          color: rgb(147, 153, 159);
                           font-weight: 700;
                           line-height: 24px;
                           text-decoration: line-through;
