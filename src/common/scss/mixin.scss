@@ -1,6 +1,6 @@
-@mixin border-1px($color){
+@mixin border-1px($color) {
   position: relative;
-  &::after{
+  &::after {
     content: "";
     display: block;
     position: absolute;
@@ -9,4 +9,12 @@
     width: 100%;
     border-top: 1px solid $color;
   }
+}
+
+@mixin absolute-position($top, $right, $bottom, $left) {
+  position: absolute;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
 }

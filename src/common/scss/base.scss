@@ -4,27 +4,6 @@ html {
   line-height: 1;
 }
 
-.clearfix {
-  display: inline-block;
-  &::before,
-  &::after {
-    display: block;
-    content: "";
-    height: 0;
-  }
-  &::after {
-    clear: both;
-  }
-}
-
-.pseudo-element {
-  &::before,
-  &::after {
-    content: "";
-    display: block;
-  }
-}
-
 .icon {
   background-size: contain;
   @at-root {

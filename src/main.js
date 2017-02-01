@@ -32,6 +32,8 @@ const router = new VueRouter({
   linkActiveClass: 'tab-active'
 })
 
+router.push('/goods')
+
 new Vue({
   router,
   render: h => h(App)

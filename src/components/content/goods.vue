@@ -1,40 +1,45 @@
 <template>
-  <div class="goods">
-    <div class="menu" ref="menuScroll">
-      <ul class="menu__goods">
-        <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList" :class="{'menu-active':currentScreenIndex===index}">
-          <span class="menu__goods_good_text">
-            <span v-if="good.type>0" class="menu__goods_good_icon" :class="'icon-'+clsMap[good.type]"></span> {{good.name}}
-          </span>
-        </li>
-      </ul>
-    </div>
-    <div class="foods" ref="foodsScroll">
-      <ul class="foods__goods-name">
-        <li v-for="(good,index) in goods" class="foods__goods-foods" ref="foodsList">
-          <h1 class="foods__goods-foods_name">{{good.name}}</h1>
-          <div class="foods__goods-foods_food" v-for="(food,index) in good.foods">
-            <img :src="food.image" alt="" class="foods__goods-foods_food_img">
-            <div class="foods__goods-foods_food_desc">
-              <h2 class="foods__goods-foods_food_desc-name">{{food.name}}</h2>
-              <p class="foods__goods-foods_food_desc-desc">{{food.description}}</p>
-              <p class="foods__goods-foods_food_desc-sell">
-                <span>月售{{food.sellCount}}份</span>
-                <span>好评率{{food.rating}}%</span>
-              </p>
-              <div class="foods__goods-foods_food_desc-price">
-                <span class="foods__goods-foods_food_desc-price_new">￥{{food.price}}</span>
-                <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price_old">￥{{food.oldPrice}}</span>
+  <div>
+    <div class="goods">
+      <div class="menu" ref="menuScroll">
+        <ul class="menu__goods">
+          <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList" :class="{'menu-active':currentScreenIndex===index}"
+            v-on:click="skipToFoods(index, $event)">
+            <span class="menu__goods_good_text">
+            <span v-if="good.type>0" class="menu__goods_good_icon" :class="'icon-'+clsMap[good.type]"></span>            {{good.name}}
+            </span>
+            </li>
+        </ul>
+      </div>
+      <div class="foods" ref="foodsScroll">
+        <ul class="foods__goods-name">
+          <li v-for="(good,index) in goods" class="foods__goods-foods" ref="foodsList">
+            <h1 class="foods__goods-foods_name">{{good.name}}</h1>
+            <div class="foods__goods-foods_food" v-for="(food,index) in good.foods">
+              <img :src="food.image" alt="" class="foods__goods-foods_food_img">
+              <div class="foods__goods-foods_food_desc">
+                <h2 class="foods__goods-foods_food_desc-name">{{food.name}}</h2>
+                <p class="foods__goods-foods_food_desc-desc">{{food.description}}</p>
+                <p class="foods__goods-foods_food_desc-sell">
+                  <span>月售{{food.sellCount}}份</span>
+                  <span>好评率{{food.rating}}%</span>
+                </p>
+                <div class="foods__goods-foods_food_desc-price">
+                  <span class="foods__goods-foods_food_desc-price_new">￥{{food.price}}</span>
+                  <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price_old">￥{{food.oldPrice}}</span>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </div>
     </div>
+    <shopCart :seller="seller"></shopCart>
   </div>
 </template>
 <script>
   import Bscroll from 'better-scroll'
+  import shopCart from 'components/shopCart/shopCart'
   const ERR_OK = 0
   export default {
     name: 'goods',
@@ -47,6 +52,9 @@
         currentScreenIndex: 0,
         scrollY: 0
       }
+    },
+    components: {
+      shopCart
     },
     props: ['seller'],
     created() {
@@ -61,8 +69,19 @@
       })
     },
     methods: {
+      skipToFoods(index, event) {
+        if (!event._constructed) {
+          return
+        }
+        console.log(index)
+        var foodsList = this.$refs.foodsList
+        var targetFoods = foodsList[index]
+        this.foodsScroll.scrollToElement(targetFoods, 300)
+      },
       _initScroll() {
-        this.menuScroll = new Bscroll(this.$refs.menuScroll)
+        this.menuScroll = new Bscroll(this.$refs.menuScroll, {
+          click: true
+        })
         this.foodsScroll = new Bscroll(this.$refs.foodsScroll, {
           probeType: 3
         })
@@ -86,6 +105,7 @@
 
 </script>
 <style lang="scss">
+  @import '../../common/scss/placeholder.scss';
   .goods {
     display: flex;
     flex-flow: row;
@@ -104,10 +124,8 @@
           padding: 0;
           @at-root {
             #{&}_good {
-              display: flex;
+              @extend %flex-center;
               flex-flow: column;
-              align-items: center;
-              justify-content: center;
               box-sizing: border-box;
               padding: 0 10px;
               text-align: left;

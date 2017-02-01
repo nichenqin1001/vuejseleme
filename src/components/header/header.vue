@@ -93,7 +93,7 @@
 
 </script>
 <style lang="scss">
-  @import '../../common/scss/base.scss';
+  @import '../../common/scss/placeholder.scss';
   .header {
     position: relative;
     text-align: left;
@@ -282,7 +282,7 @@
                 width: 80%;
                 &::before,
                 &::after {
-                  @extend .pseudo-element;
+                  @extend %pseudo-element;
                   flex: 1;
                   border: 1px solid rgba(255, 255, 255, 0.2)
                 }
