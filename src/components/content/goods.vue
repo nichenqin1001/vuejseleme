@@ -1,18 +1,18 @@
 <template>
   <div class="goods">
-    <div class="menu">
+    <div class="menu" ref="menuScroll">
       <ul class="menu__goods">
-        <li class="menu__goods_good" v-for="(good,index) in goods">
+        <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList">
           <span class="menu__goods_good_text">
             <span v-if="good.type>0" class="menu__goods_good_icon" :class="'icon-'+clsMap[good.type]"></span> {{good.name}}
           </span>
         </li>
       </ul>
     </div>
-    <div class="foods">
+    <div class="foods" ref="foodsScroll">
       <ul class="foods__goods-name">
-        <li v-for="(good,index) in goods" class="foods__goods-foods">
-          <hi class="foods__goods-foods_name">{{good.name}}</hi>
+        <li v-for="(good,index) in goods" class="foods__goods-foods" ref="foodsList">
+          <h1 class="foods__goods-foods_name">{{good.name}}</h1>
           <div class="foods__goods-foods_food" v-for="(food,index) in good.foods">
             <img :src="food.image" alt="" class="foods__goods-foods_food_img">
             <div class="foods__goods-foods_food_desc">
@@ -24,7 +24,7 @@
               </p>
               <div class="foods__goods-foods_food_desc-price">
                 <span class="foods__goods-foods_food_desc-price_new">￥{{food.price}}</span>
-                <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price-old">{{food.oldPrice}}</span>
+                <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price_old">￥{{food.oldPrice}}</span>
               </div>
             </div>
           </div>
@@ -34,25 +34,63 @@
   </div>
 </template>
 <script>
+  import Bscroll from 'better-scroll'
   const ERR_OK = 0
   export default {
     name: 'goods',
     data() {
       return {
         goods: [],
-        clsMap: ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+        clsMap: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
+        menuScroll: '',
+        foodsScroll: '',
+        currentScreenIndex: 0,
+        scrollY: 0
       }
     },
     props: ['seller'],
     created() {
       this.$http.get('/api/goods').then((response) => {
         response = response.body
-        console.log(response)
         if (response.errno === ERR_OK) {
           this.goods = response.data
-          console.log(this.goods)
+          this.$nextTick(() => {
+            this._setMenuBackground()
+            this._initScroll()
+          })
         }
       })
+    },
+    methods: {
+      _initScroll() {
+        this.menuScroll = new Bscroll(this.$refs.menuScroll)
+        this.foodsScroll = new Bscroll(this.$refs.foodsScroll, {
+          probeType: 3
+        })
+        this.foodsScroll.on('scroll', (pos) => {
+          this.scrollY = Math.abs(Math.round(pos.y))
+          this._getCurrentScreenIndex()
+          this._setMenuBackground()
+          console.log(this.currentScreenIndex)
+        })
+      },
+      _getCurrentScreenIndex() {
+        var foodsList = this.$refs.foodsList
+        for (var i = 0; i < foodsList.length; i++) {
+          var foodsTop = foodsList[i].offsetTop
+          if (this.scrollY - foodsTop < 0) {
+            break
+          }
+          this.currentScreenIndex = i
+        }
+      },
+      _setMenuBackground() {
+        var menuList = this.$refs.menuList
+        menuList.forEach(function (menu) {
+          menu.classList.remove('menu-active')
+        })
+        menuList[this.currentScreenIndex].classList.add('menu-active')
+      }
     }
   }
 
@@ -84,6 +122,9 @@
               width: 56px;
               height: 59px;
               border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+              &.menu-active{
+                background: white;
+              }
               @at-root {
                 #{&}_text {
                   display: inline-block;
@@ -114,6 +155,7 @@
           flex-flow: column;
           @at-root {
             #{&}_name {
+              margin: 0;
               width: 100%;
               height: 26px;
               background: #f3f5f7;
@@ -156,7 +198,7 @@
                       @at-root {
                         #{&}_new {
                           font-size: 14px;
-                          color: rbg(147, 153, 159);
+                          color: red;
                           font-weight: 700;
                           line-height: 24px;
                           &::first-letter {
@@ -164,7 +206,13 @@
                             color: red;
                           }
                         }
-                        #{&}_old {}
+                        #{&}_old {
+                          font-size: 10px;
+                          color: rgb(147,153,159);
+                          font-weight: 700;
+                          line-height: 24px;
+                          text-decoration: line-through;
+                        }
                       }
                     }
                   }
