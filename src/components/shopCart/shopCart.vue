@@ -9,7 +9,9 @@
         <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
         <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
-      <div class="content__right">￥{{seller.minPrice}}元起送</div>
+      <div v-if="totalPrice===0" class="content__right">￥{{seller.minPrice}}元起送</div>
+      <div v-else-if="totalPrice<seller.minPrice" class="content__right">还差￥{{diffPrice}}元起送</div>
+      <div v-else class="content__right content__right_status_active">去结算</div>
     </div>
   </div>
 </template>
@@ -23,9 +25,6 @@
           return [{
             price: 10,
             count: 1
-          }, {
-            price: 15,
-            count: 3
           }]
         }
       }
@@ -44,6 +43,9 @@
           totalCount += food.count
         })
         return totalCount
+      },
+      diffPrice() {
+        return parseInt(this.seller.minPrice - this.totalPrice)
       }
     }
   }
@@ -52,6 +54,8 @@
 <style lang="scss">
   @import '../../common/scss/placeholder.scss';
   @import '../../common/scss/mixin.scss';
+  $shop-cart-active-background: rgb(0, 160, 220);
+  $shop-cart-active-color: rgb(255, 255, 255);
   .cart {
     position: fixed;
     bottom: 0;
@@ -80,7 +84,7 @@
               border: 6px solid #141d17;
               @at-root {
                 #{&}_status_active {
-                  background: rgb(0, 160, 220);
+                  background: $shop-cart-active-background;
                 }
               }
               .icon-shopping_cart {
@@ -90,8 +94,8 @@
                 color: #80858a;
               }
               .icon-active {
-                background: rgb(0, 160, 220);
-                color: rgb(255, 255, 255);
+                background: $shop-cart-active-background;
+                color: $shop-cart-active-color;
               }
             }
             #{&}_count {
@@ -117,7 +121,7 @@
               font-weight: 700;
               @at-root {
                 #{&}_status_active {
-                  color: rgb(255, 255, 255);
+                  color: $shop-cart-active-color;
                 }
               }
             }
@@ -138,6 +142,12 @@
           line-height: 24px;
           color: rgba(255, 255, 255, 0.4);
           background: #2b333b;
+          @at-root {
+            #{&}_status_active {
+              background: $shop-cart-active-background;
+              color: $shop-cart-active-color;
+            }
+          }
         }
       }
     }
