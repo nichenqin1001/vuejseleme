@@ -73,10 +73,14 @@
         if (!event._constructed) {
           return
         }
-        console.log(index)
         var foodsList = this.$refs.foodsList
         var targetFoods = foodsList[index]
         this.foodsScroll.scrollToElement(targetFoods, 300)
+      },
+      skipToMenu(currentScreenIndex) {
+        var menuList = this.$refs.menuList
+        var targetMenu = menuList[currentScreenIndex]
+        this.menuScroll.scrollToElement(targetMenu, 300)
       },
       _initScroll() {
         this.menuScroll = new Bscroll(this.$refs.menuScroll, {
@@ -88,6 +92,7 @@
         this.foodsScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
           this._getCurrentScreenIndex()
+          this.skipToMenu(this.currentScreenIndex)
         })
       },
       _getCurrentScreenIndex() {
