@@ -2,19 +2,47 @@
   <div class="cart">
     <div class="content">
       <div class="content__left">
-        <div class="content__left_icon">
-          <i class="icon-shopping_cart"></i>
+        <div :class="{content__left_icon_status_active:totalCount>0}" class="content__left_icon">
+          <i :class="{'icon-active':totalCount>0}" class="icon-shopping_cart"></i>
         </div>
-        <div class="content__left_price">￥0</div>
+        <div v-if="totalCount>0" class="content__left_count">{{totalCount}}</div>
+        <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
         <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
-      <div class="content__right">￥{{seller.minPrice}}</div>
+      <div class="content__right">￥{{seller.minPrice}}元起送</div>
     </div>
   </div>
 </template>
 <script>
   export default {
-    props: ['seller']
+    props: {
+      seller: Object,
+      selectedFoods: {
+        type: Array,
+        default () {
+          return [{
+            price: 10,
+            count: 1
+          }]
+        }
+      }
+    },
+    computed: {
+      totalPrice() {
+        var totalPrice = 0
+        this.selectedFoods.forEach((food) => {
+          totalPrice += food.price * food.count
+        })
+        return totalPrice
+      },
+      totalCount() {
+        var totalCount = 0
+        this.selectedFoods.forEach((food) => {
+          totalCount += food.count
+        })
+        return totalCount
+      }
+    }
   }
 
 </script>
@@ -47,12 +75,34 @@
               background: #2b343c;
               border-radius: 50%;
               border: 6px solid #141d17;
+              @at-root {
+                #{&}_status_active {
+                  background: rgb(0, 160, 220);
+                }
+              }
               .icon-shopping_cart {
                 font-size: 24px;
                 line-height: 44px;
                 background: #2b343c;
                 color: #80858a;
               }
+              .icon-active {
+                background: rgb(0, 160, 220);
+                color: rgb(255, 255, 255);
+              }
+            }
+            #{&}_count {
+              @include absolute-position(-10px, 0, 0, 44px);
+              box-sizing: border-box;
+              max-width: 24px;
+              height: 18px;
+              background: rgb(240, 20, 20);
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+              color: #fff;
+              font-size: 9px;
+              font-weight: 700;
+              line-height: 16px;
+              border-radius: 6px/50%;
             }
             #{&}_price {
               vertical-align: top;
@@ -62,6 +112,11 @@
               border-right: 1px solid rgba(255, 255, 255, 0.1);
               font-size: 16px;
               font-weight: 700;
+              @at-root {
+                #{&}_status_active {
+                  color: rgb(255, 255, 255);
+                }
+              }
             }
             #{&}_deliveryprice {
               font-size: 12px;
@@ -71,13 +126,15 @@
         }
         #{&}__right {
           @extend %flex-center;
-          vertical-align: middle;
           flex: 0 0 105px;
           padding: 0 8px;
           height: 100%;
+          vertical-align: middle;
           font-size: 12px;
           font-weight: 700;
           line-height: 24px;
+          color: rgba(255, 255, 255, 0.4);
+          background: #2b333b;
         }
       }
     }
