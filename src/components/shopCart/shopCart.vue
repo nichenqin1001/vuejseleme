@@ -23,6 +23,9 @@
           return [{
             price: 10,
             count: 1
+          }, {
+            price: 15,
+            count: 3
           }]
         }
       }
