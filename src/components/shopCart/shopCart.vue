@@ -6,7 +6,7 @@
           <i :class="{'icon-active':totalCount>0}" class="icon-shopping_cart"></i>
         </div>
         <div v-if="totalCount>0" class="content__left_count">{{totalCount}}</div>
-        <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
+        <div :class="{'1content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
         <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
       <div v-if="totalPrice===0" class="content__right">￥{{seller.minPrice}}元起送</div>
@@ -24,7 +24,7 @@
         default () {
           return [{
             price: 10,
-            count: 1
+            count: 6
           }]
         }
       }
@@ -52,10 +52,9 @@
 
 </script>
 <style lang="scss">
+  @import '../../common/scss/variables.scss';
   @import '../../common/scss/placeholder.scss';
   @import '../../common/scss/mixin.scss';
-  $shop-cart-active-background: rgb(0, 160, 220);
-  $shop-cart-active-color: rgb(255, 255, 255);
   .cart {
     position: fixed;
     bottom: 0;
@@ -126,6 +125,7 @@
               }
             }
             #{&}_deliveryprice {
+              padding-left: 12px;
               font-size: 12px;
               color: rgba(255, 255, 255, 0.4);
             }

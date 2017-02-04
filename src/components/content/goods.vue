@@ -29,6 +29,7 @@
                   <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price_old">￥{{food.oldPrice}}</span>
                 </div>
               </div>
+              <cartcontrol :food="food"></cartcontrol>
             </div>
           </li>
         </ul>
@@ -40,6 +41,7 @@
 <script>
   import Bscroll from 'better-scroll'
   import shopCart from 'components/shopCart/shopCart'
+  import cartcontrol from 'components/cartControl/cartControl'
   const ERR_OK = 0
   export default {
     name: 'goods',
@@ -54,7 +56,8 @@
       }
     },
     components: {
-      shopCart
+      shopCart,
+      cartcontrol
     },
     props: ['seller'],
     created() {
@@ -87,7 +90,8 @@
           click: true
         })
         this.foodsScroll = new Bscroll(this.$refs.foodsScroll, {
-          probeType: 3
+          probeType: 3,
+          click: true
         })
         this.foodsScroll.on('scroll', (pos) => {
           this.scrollY = Math.abs(Math.round(pos.y))
@@ -184,6 +188,7 @@
               padding-left: 14px;
             }
             #{&}_food {
+              position: relative;
               display: flex;
               flex-flow: row;
               padding: 18px;
