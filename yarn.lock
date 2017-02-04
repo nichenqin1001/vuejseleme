@@ -4456,6 +4456,10 @@ vue@^2.1.0:
   version "2.1.10"
   resolved "http://registry.npm.taobao.org/vue/download/vue-2.1.10.tgz#c9235ca48c7925137be5807832ac4e3ac180427b"
 
+vuex@^2.1.1:
+  version "2.1.1"
+  resolved "http://registry.npm.taobao.org/vuex/download/vuex-2.1.1.tgz#78463ee45fae4871c5d05177b4e8cedd9e2cbccc"
+
 watchpack@^0.2.1:
   version "0.2.9"
   resolved "http://registry.npm.taobao.org/watchpack/download/watchpack-0.2.9.tgz#62eaa4ab5e5ba35fdfc018275626e3c0f5e3fb0b"

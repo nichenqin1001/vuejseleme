@@ -35,7 +35,7 @@
         </ul>
       </div>
     </div>
-    <shopCart :seller="seller"></shopCart>
+    <shopCart ref="shopCart" :seller="seller" :selectedFoods="selectedFoods"></shopCart>
   </div>
 </template>
 <script>
@@ -108,6 +108,19 @@
           }
           this.currentScreenIndex = i
         }
+      }
+    },
+    computed: {
+      selectedFoods() {
+        var selectedFoods = []
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              selectedFoods.push(food)
+            }
+          })
+        })
+        return selectedFoods
       }
     }
   }

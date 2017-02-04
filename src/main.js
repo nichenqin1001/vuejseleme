@@ -1,9 +1,9 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Vuex from 'vuex'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
-import App from './App'
 import goods from 'components/content/goods'
 import ratings from 'components/content/ratings'
 import seller from 'components/content/seller'
@@ -12,6 +12,8 @@ import 'common/scss/index.scss'
 
 Vue.use(VueRouter)
 Vue.use(VueResource)
+Vue.use(Vuex)
+import App from './App'
 
 const routes = [{
     path: '/goods',

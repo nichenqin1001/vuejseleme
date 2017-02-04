@@ -6,28 +6,45 @@
           <i :class="{'icon-active':totalCount>0}" class="icon-shopping_cart"></i>
         </div>
         <div v-if="totalCount>0" class="content__left_count">{{totalCount}}</div>
-        <div :class="{'1content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
+        <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
         <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
       <div v-if="totalPrice===0" class="content__right">￥{{seller.minPrice}}元起送</div>
       <div v-else-if="totalPrice<seller.minPrice" class="content__right">还差￥{{diffPrice}}元起送</div>
       <div v-else class="content__right content__right_status_active">去结算</div>
     </div>
+    <div class="balls">
+      <transition name="drop">
+        <div v-if="ball.show" class="balls" v-for="(ball,index) in balls"></div>__ball
+      </transition>
+    </div>
   </div>
 </template>
 <script>
   export default {
+    data() {
+      return {
+        balls: [{
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          },
+          {
+            show: false
+          }
+        ]
+      }
+    },
     props: {
       seller: Object,
-      selectedFoods: {
-        type: Array,
-        default () {
-          return [{
-            price: 10,
-            count: 6
-          }]
-        }
-      }
+      selectedFoods: Array
     },
     computed: {
       totalPrice() {
@@ -150,6 +167,12 @@
           }
         }
       }
+    }
+    .ball {
+      position: fixed;
+      left: 32px;
+      bottom: 22px;
+      z-index: 200;
     }
   }
 

@@ -1,14 +1,14 @@
 <template>
   <div class="cartcontrol">
-    <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <transition name="custom-classes-transition" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
       <div v-if="food.count>0" class="cartcontrol__decrease" @click="decreaseFoodCount()" key="decrease">
         <i class="icon-remove_circle_outline"></i>
       </div>
     </transition>
-    <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+    <transition name="custom-classes-transition" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
       <div v-if="food.count>0" class="cartcontrol__count" key="count">{{food.count}}</div>
     </transition>
-    <div class="cartcontrol__increase" @click="increaseFoodCount()">
+    <div class="cartcontrol__increase" @click="increaseFoodCount()" ref="increaseControl">
       <i class="icon-add_circle"></i>
     </div>
   </div>
@@ -25,6 +25,7 @@
         } else {
           this.food.count++
         }
+        console.log(this.$refs.increaseControl.getBoundingClientRect())
       },
       decreaseFoodCount() {
         if (this.food.count === 0) {
@@ -75,11 +76,6 @@
         color: $shop-cart-active-background;
       }
     }
-  }
-
-  .fadeIn,
-  .fadeOut {
-    animation-duration: 0.3s;
   }
 
 </style>
