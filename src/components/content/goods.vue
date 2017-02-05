@@ -42,6 +42,7 @@
   import Bscroll from 'better-scroll'
   import shopCart from 'components/shopCart/shopCart'
   import cartcontrol from 'components/cartControl/cartControl'
+  import store from '../../vuex/store.js'
   const ERR_OK = 0
   export default {
     name: 'goods',
@@ -122,7 +123,8 @@
         })
         return selectedFoods
       }
-    }
+    },
+    store: store
   }
 
 </script>

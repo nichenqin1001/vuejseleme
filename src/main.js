@@ -7,6 +7,7 @@ import VueResource from 'vue-resource'
 import goods from 'components/content/goods'
 import ratings from 'components/content/ratings'
 import seller from 'components/content/seller'
+import store from './vuex/store'
 
 import 'common/scss/index.scss'
 
@@ -38,5 +39,6 @@ router.push('/goods')
 
 new Vue({
   router,
+  store,
   render: h => h(App)
 }).$mount('#app')

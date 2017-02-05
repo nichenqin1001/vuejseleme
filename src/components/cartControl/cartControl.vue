@@ -16,6 +16,14 @@
 <script>
   import Vue from 'vue'
   export default {
+    data() {
+      return {
+        rect: {
+          clickTop: 0,
+          clickLeft: 0
+        }
+      }
+    },
     name: 'cartcontrol',
     props: ['food'],
     methods: {
@@ -25,7 +33,10 @@
         } else {
           this.food.count++
         }
-        console.log(this.$refs.increaseControl.getBoundingClientRect())
+        this.rect.clickTop = this.$refs.increaseControl.getBoundingClientRect().top
+        this.rect.clickLeft = this.$refs.increaseControl.getBoundingClientRect().left
+        this.$store.dispatch('updateTop', this.rect.clickTop)
+        this.$store.dispatch('updateLeft', this.rect.clickLeft)
       },
       decreaseFoodCount() {
         if (this.food.count === 0) {
