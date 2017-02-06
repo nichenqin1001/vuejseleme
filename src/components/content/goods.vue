@@ -88,7 +88,6 @@
       },
       _drop() {
         this.$refs.shopCart.drop()
-        console.log(this.$refs.shopCart.drop())
       },
       _initScroll() {
         this.menuScroll = new Bscroll(this.$refs.menuScroll, {

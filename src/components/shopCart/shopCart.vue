@@ -19,9 +19,27 @@
         </li>
       </transition-group>
     </div>
+    <transition name="fold">
+      <div v-show="selectedFoods.length" class="list">
+        <div class="list__header">
+          <h3 class="list__header-title">购物车</h3>
+          <div class="list__header-empty">清空</div>
+        </div>
+        <div class="list__content">
+          <ul>
+            <li class="list__content-food" v-for="(food,index) in selectedFoods">
+              <span class="list__content-food_name">{{food.name}}</span>
+              <span class="list__content-food_price">{{food.price}}</span>
+              <cartcontrol :food="food"></cartcontrol>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
 <script>
+  import cartcontrol from 'components/cartControl/cartControl'
   export default {
     data() {
       return {
@@ -48,6 +66,9 @@
         ],
         dropballs: []
       }
+    },
+    components: {
+      cartcontrol
     },
     props: {
       seller: Object,
@@ -139,6 +160,7 @@
               background: #2b343c;
               border-radius: 50%;
               border: 6px solid #141d17;
+              z-index: 100;
               @at-root {
                 #{&}_status_active {
                   background: $shop-cart-active-background;
@@ -167,6 +189,7 @@
               font-weight: 700;
               line-height: 16px;
               border-radius: 6px/50%;
+              z-index: 100;
             }
             #{&}_price {
               vertical-align: top;
@@ -222,6 +245,78 @@
           border-radius: 50%;
           background: $shop-cart-active-background;
           transition: all .5s cubic-bezier(0.6, -0.28, 0.735, 0.045)
+        }
+      }
+    }
+    .list {
+      position: fixed;
+      bottom: 46px;
+      width: 100%;
+      z-index: 1;
+      @at-root {
+        #{&}__header {
+          height: 40px;
+          background: #f3f5f7;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 18px;
+          border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+          @at-root {
+            #{&}-title {
+              font-size: 14px;
+              font-weight: 200;
+              color: rgb(7, 17, 27);
+              line-height: 40px;
+            }
+            #{&}-empty {
+              font-size: 12px;
+              color: $shop-cart-active-background;
+              line-height: 40px;
+            }
+          }
+        }
+        #{&}__content {
+          background: #fff;
+          ul {
+            list-style: none;
+            margin: 0;
+            padding: 0 18px;
+          }
+          @at-root {
+            #{&}-food {
+              height: 48px;
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+              @at-root {
+                #{&}_name {
+                  flex: 4;
+                  text-align: left;
+                  font-size: 14px;
+                  color: rgb(7, 17, 27);
+                }
+                #{&}_price {
+                  flex: 1;
+                  font-size: 14px;
+                  font-weight: 700;
+                  color: rgb(240, 20, 20);
+                }
+              }
+              .cartcontrol {
+                flex: 1;
+                padding: 0;
+                position: static;
+                @at-root {
+                  #{&}__count {
+                    font-size: 10px;
+                    color: rgb(147, 153, 159);
+                  }
+                }
+              }
+            }
+          }
         }
       }
     }
