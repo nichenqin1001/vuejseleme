@@ -7,16 +7,17 @@
         </div>
         <div v-if="totalCount>0" class="content__left_count">{{totalCount}}</div>
         <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
-        <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
+        <div @click="drop()" class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
       <div v-if="totalPrice===0" class="content__right">￥{{seller.minPrice}}元起送</div>
       <div v-else-if="totalPrice<seller.minPrice" class="content__right">还差￥{{diffPrice}}元起送</div>
       <div v-else class="content__right content__right_status_active">去结算</div>
     </div>
     <div class="balls">
-      <transition name="drop">
-        <div v-if="ball.show" class="balls" v-for="(ball,index) in balls"></div>__ball
-      </transition>
+      <transition-group tag="ul" name="drop" v-on:before-enter="beforeEnter" v-on:enter="enter" v-on:after-enter="afterEnter">
+        <li :key="ball.id" v-if="ball.show" class="balls__ball" v-for="(ball,index) in balls">
+        </li>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -25,20 +26,25 @@
     data() {
       return {
         balls: [{
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        },
-        {
-          show: false
-        }
+            id: 1,
+            show: false
+          },
+          {
+            id: 2,
+            show: false
+          },
+          {
+            id: 3,
+            show: false
+          },
+          {
+            id: 4,
+            show: false
+          },
+          {
+            id: 5,
+            show: false
+          }
         ],
         dropballs: []
       }
@@ -75,6 +81,28 @@
             this.dropballs.push(ball)
             return
           }
+        }
+      },
+      beforeEnter(el) {
+        let count = this.balls.length
+        while (count--) {
+          el.style.left = this.$store.getters.getRect.left + 'px'
+          el.style.top = this.$store.getters.getRect.top + 'px'
+        }
+      },
+      // 此回调函数是可选项的设置
+      // 与 CSS 结合时使用
+      enter(el, done) {
+        this.$nextTick(() => {
+          el.style.left = 32 + 'px'
+          el.style.top = window.innerHeight - 22 + 'px'
+        })
+        done()
+      },
+      afterEnter(el) {
+        let ball = this.dropballs.shift()
+        if (ball) {
+          ball.show = false
         }
       }
     }
@@ -181,11 +209,21 @@
         }
       }
     }
-    .ball {
-      position: fixed;
-      left: 32px;
-      bottom: 22px;
-      z-index: 200;
+    .balls {
+      @at-root {
+        #{&}__ball {
+          position: fixed;
+          left: 32px;
+          bottom: 22px;
+          z-index: 200;
+          width: 16px;
+          height: 16px;
+          list-style: none;
+          border-radius: 50%;
+          background: $shop-cart-active-background;
+          transition: all .5s cubic-bezier(0.6, -0.28, 0.735, 0.045)
+        }
+      }
     }
   }
 

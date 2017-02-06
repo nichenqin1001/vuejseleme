@@ -109,6 +109,9 @@
           }
           this.currentScreenIndex = i
         }
+      },
+      _drop() {
+        this.$refs.shopCart.drop()
       }
     },
     computed: {
