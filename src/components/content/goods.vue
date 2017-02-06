@@ -29,7 +29,7 @@
                   <span v-if="food.oldPrice" class="foods__goods-foods_food_desc-price_old">￥{{food.oldPrice}}</span>
                 </div>
               </div>
-              <cartcontrol :food="food"></cartcontrol>
+              <cartcontrol @add="_drop()" :food="food"></cartcontrol>
             </div>
           </li>
         </ul>
@@ -86,6 +86,10 @@
         var targetMenu = menuList[currentScreenIndex]
         this.menuScroll.scrollToElement(targetMenu, 300)
       },
+      _drop() {
+        this.$refs.shopCart.drop()
+        console.log(this.$refs.shopCart.drop())
+      },
       _initScroll() {
         this.menuScroll = new Bscroll(this.$refs.menuScroll, {
           click: true
@@ -109,9 +113,6 @@
           }
           this.currentScreenIndex = i
         }
-      },
-      _drop() {
-        this.$refs.shopCart.drop()
       }
     },
     computed: {

@@ -10,7 +10,8 @@ const state = {
   rect: {
     top: 0,
     left: 0
-  }
+  },
+  cartDom: ''
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -20,6 +21,10 @@ const mutations = {
     state.rect.top = top
   },
   UPDATE_LEFT(state, left) {
+    state.rect.left = left
+  },
+  UPDATE(state, top, left) {
+    state.rect.top = top
     state.rect.left = left
   }
 }
@@ -34,12 +39,20 @@ const actions = {
     commit
   }, left) {
     commit('UPDATE_LEFT', left)
+  },
+  update({
+    commit
+  }, top, left) {
+    commit('UPDATE', top, left)
   }
 }
 
 const getters = {
   getRect(state) {
     return state.rect
+  },
+  getCartDom(state) {
+    return state.cartDom
   }
 }
 

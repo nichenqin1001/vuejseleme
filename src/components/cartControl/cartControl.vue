@@ -8,7 +8,7 @@
     <transition name="custom-classes-transition" enter-active-class="animated rollIn" leave-active-class="animated rollOut">
       <div v-if="food.count>0" class="cartcontrol__count" key="count">{{food.count}}</div>
     </transition>
-    <div class="cartcontrol__increase" @click="increaseFoodCount()" ref="increaseControl">
+    <div class="cartcontrol__increase" @click="increaseFoodCount($event)" ref="increaseControl">
       <i class="icon-add_circle"></i>
     </div>
   </div>
@@ -27,7 +27,7 @@
     name: 'cartcontrol',
     props: ['food'],
     methods: {
-      increaseFoodCount() {
+      increaseFoodCount(event) {
         if (!this.food.count) {
           Vue.set(this.food, 'count', 1)
         } else {
@@ -35,8 +35,9 @@
         }
         this.rect.clickTop = this.$refs.increaseControl.getBoundingClientRect().top
         this.rect.clickLeft = this.$refs.increaseControl.getBoundingClientRect().left
-        this.$store.dispatch('updateTop', this.rect.clickTop)
+        this.$store.dispatch('update', this.rect.clickTop)
         this.$store.dispatch('updateLeft', this.rect.clickLeft)
+        this.$emit('add')
       },
       decreaseFoodCount() {
         if (this.food.count === 0) {
