@@ -25,21 +25,22 @@
     data() {
       return {
         balls: [{
-            show: false
-          },
-          {
-            show: false
-          },
-          {
-            show: false
-          },
-          {
-            show: false
-          },
-          {
-            show: false
-          }
-        ]
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        },
+        {
+          show: false
+        }
+        ],
+        dropballs: []
       }
     },
     props: {
@@ -63,6 +64,18 @@
       },
       diffPrice() {
         return parseInt(this.seller.minPrice - this.totalPrice)
+      }
+    },
+    methods: {
+      drop() {
+        for (let i = 0; i < this.balls.length; i++) {
+          let ball = this.balls[i]
+          if (!ball.show) {
+            ball.show = true
+            this.dropballs.push(ball)
+            return
+          }
+        }
       }
     }
   }
