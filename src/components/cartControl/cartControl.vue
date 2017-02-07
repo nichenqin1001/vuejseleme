@@ -35,7 +35,7 @@
         }
         this.rect.clickTop = this.$refs.increaseControl.getBoundingClientRect().top
         this.rect.clickLeft = this.$refs.increaseControl.getBoundingClientRect().left
-        this.$store.dispatch('update', this.rect.clickTop)
+        this.$store.dispatch('updateTop', this.rect.clickTop)
         this.$store.dispatch('updateLeft', this.rect.clickLeft)
         this.$emit('add')
       },

@@ -98,6 +98,7 @@
       },
       listShow() {
         if (!this.selectedFoods.length) {
+          this.fold = true
           return false
         } else {
           if (!this.fold) {

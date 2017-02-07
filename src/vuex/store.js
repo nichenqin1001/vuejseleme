@@ -11,7 +11,8 @@ const state = {
     top: 0,
     left: 0
   },
-  cartDom: ''
+  showFoodsDetail: false,
+  selectedFood: {}
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -23,9 +24,11 @@ const mutations = {
   UPDATE_LEFT(state, left) {
     state.rect.left = left
   },
-  UPDATE(state, top, left) {
-    state.rect.top = top
-    state.rect.left = left
+  TOGGLE_FOOD_DETAIL(state, showFoodsDetail) {
+    state.showFoodsDetail = showFoodsDetail
+  },
+  FRESH_SELECTED_FOOD(state, food) {
+    state.selectedFood = food
   }
 }
 
@@ -40,10 +43,15 @@ const actions = {
   }, left) {
     commit('UPDATE_LEFT', left)
   },
-  update({
+  toggleFoodDetail({
     commit
-  }, top, left) {
-    commit('UPDATE', top, left)
+  }, showFoodsDetail) {
+    commit('TOGGLE_FOOD_DETAIL', showFoodsDetail)
+  },
+  freshSelectedFood({
+    commit
+  }, food) {
+    commit('FRESH_SELECTED_FOOD', food)
   }
 }
 
@@ -51,8 +59,11 @@ const getters = {
   getRect(state) {
     return state.rect
   },
-  getCartDom(state) {
-    return state.cartDom
+  getShowFoodDetail(state) {
+    return state.showFoodsDetail
+  },
+  getSelectedFood(state) {
+    return state.selectedFood
   }
 }
 

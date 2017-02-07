@@ -17,7 +17,7 @@
             <h1 class="foods__goods-foods_name">{{good.name}}</h1>
             <div class="foods__goods-foods_food" v-for="(food,index) in good.foods">
               <img :src="food.image" alt="" class="foods__goods-foods_food_img">
-              <div class="foods__goods-foods_food_desc">
+              <div class="foods__goods-foods_food_desc" @click="renderSelectedFood(food)" >
                 <h2 class="foods__goods-foods_food_desc-name">{{food.name}}</h2>
                 <p class="foods__goods-foods_food_desc-desc">{{food.description}}</p>
                 <p class="foods__goods-foods_food_desc-sell">
@@ -35,6 +35,9 @@
         </ul>
       </div>
     </div>
+    <transition name="custom-classes-transition" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
+      <food :selectedFood="selectedFood" v-show="this.$store.getters.getShowFoodDetail"></food>
+    </transition>
     <shopCart ref="shopCart" :seller="seller" :selectedFoods="selectedFoods"></shopCart>
   </div>
 </template>
@@ -43,6 +46,7 @@
   import shopCart from 'components/shopCart/shopCart'
   import cartcontrol from 'components/cartControl/cartControl'
   import store from '../../vuex/store.js'
+  import food from 'components/food/food'
   const ERR_OK = 0
   export default {
     name: 'goods',
@@ -53,12 +57,14 @@
         menuScroll: '',
         foodsScroll: '',
         currentScreenIndex: 0,
-        scrollY: 0
+        scrollY: 0,
+        selectedFood: {}
       }
     },
     components: {
       shopCart,
-      cartcontrol
+      cartcontrol,
+      food
     },
     props: ['seller'],
     created() {
@@ -85,6 +91,10 @@
         var menuList = this.$refs.menuList
         var targetMenu = menuList[currentScreenIndex]
         this.menuScroll.scrollToElement(targetMenu, 300)
+      },
+      renderSelectedFood(food) {
+        this.selectedFood = food
+        this.$store.dispatch('toggleFoodDetail', true)
       },
       _drop() {
         this.$refs.shopCart.drop()
