@@ -1,13 +1,13 @@
 <template>
   <div class="cart">
     <div class="content">
-      <div class="content__left">
+      <div class="content__left" @click="listContentShow">
         <div :class="{content__left_icon_status_active:totalCount>0}" class="content__left_icon">
           <i :class="{'icon-active':totalCount>0}" class="icon-shopping_cart"></i>
         </div>
         <div v-if="totalCount>0" class="content__left_count">{{totalCount}}</div>
         <div :class="{'content__left_price_status_active':totalPrice>0}" class="content__left_price">￥{{totalPrice}}</div>
-        <div @click="drop()" class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
+        <div class="content__left_deliveryprice">另需配送费￥{{seller.deliveryPrice}}元</div>
       </div>
       <div v-if="totalPrice===0" class="content__right">￥{{seller.minPrice}}元起送</div>
       <div v-else-if="totalPrice<seller.minPrice" class="content__right">还差￥{{diffPrice}}元起送</div>
@@ -19,26 +19,28 @@
         </li>
       </transition-group>
     </div>
-    <transition name="fold">
-      <div v-show="selectedFoods.length" class="list">
-        <div class="list__header">
-          <h3 class="list__header-title">购物车</h3>
-          <div class="list__header-empty">清空</div>
-        </div>
-        <div class="list__content">
-          <ul>
-            <li class="list__content-food" v-for="(food,index) in selectedFoods">
-              <span class="list__content-food_name">{{food.name}}</span>
-              <span class="list__content-food_price">{{food.price}}</span>
-              <cartcontrol :food="food"></cartcontrol>
-            </li>
-          </ul>
-        </div>
+    <transition-group name="fold" v-show="listShow" class="list" tag="div">
+      <div key="header" class="list__header" v-show="listShow" @click="listContentShow">
+        <h3 class="list__header-title">购物车</h3>
+        <div class="list__header-empty" @click="empty">清空</div>
       </div>
+      <div key="content" class="list__content" ref="listScroll" v-show="!fold">
+        <ul>
+          <li class="list__content-food" v-for="(food,index) in selectedFoods">
+            <span class="list__content-food_name">{{food.name}}</span>
+            <span class="list__content-food_price">{{food.price}}</span>
+            <cartcontrol @add="drop()" :food="food"></cartcontrol>
+          </li>
+        </ul>
+      </div>
+    </transition-group>
+    <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
+      <div class="cover" v-show="!fold"></div>
     </transition>
   </div>
 </template>
 <script>
+  import Bscroll from 'better-scroll'
   import cartcontrol from 'components/cartControl/cartControl'
   export default {
     data() {
@@ -64,7 +66,9 @@
             show: false
           }
         ],
-        dropballs: []
+        dropballs: [],
+        listScroll: '',
+        fold: true
       }
     },
     components: {
@@ -91,6 +95,24 @@
       },
       diffPrice() {
         return parseInt(this.seller.minPrice - this.totalPrice)
+      },
+      listShow() {
+        if (!this.selectedFoods.length) {
+          return false
+        } else {
+          if (!this.fold) {
+            this.$nextTick(() => {
+              if (!this.listScroll) {
+                this.listScroll = new Bscroll(this.$refs.listScroll, {
+                  click: true
+                })
+              } else {
+                this.listScroll.refresh()
+              }
+            })
+          }
+          return true
+        }
       }
     },
     methods: {
@@ -125,6 +147,14 @@
         if (ball) {
           ball.show = false
         }
+      },
+      empty() {
+        this.selectedFoods.forEach((food) => {
+          food.count = 0
+        })
+      },
+      listContentShow() {
+        this.fold = (this.fold) ? '' : true
       }
     }
   }
@@ -150,6 +180,7 @@
           flex: 1;
           height: 100%;
           background: #141d17;
+          z-index: 100;
           @at-root {
             #{&}_icon {
               @include absolute-position(-10px, 0, 0, 12px);
@@ -160,7 +191,6 @@
               background: #2b343c;
               border-radius: 50%;
               border: 6px solid #141d17;
-              z-index: 100;
               @at-root {
                 #{&}_status_active {
                   background: $shop-cart-active-background;
@@ -189,7 +219,6 @@
               font-weight: 700;
               line-height: 16px;
               border-radius: 6px/50%;
-              z-index: 100;
             }
             #{&}_price {
               vertical-align: top;
@@ -223,6 +252,7 @@
           line-height: 24px;
           color: rgba(255, 255, 255, 0.4);
           background: #2b333b;
+          z-index: 100;
           @at-root {
             #{&}_status_active {
               background: $shop-cart-active-background;
@@ -261,7 +291,7 @@
           align-items: center;
           justify-content: space-between;
           padding: 0 18px;
-          border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+          border: 1px solid rgba(7, 17, 27, 0.1);
           @at-root {
             #{&}-title {
               font-size: 14px;
@@ -278,6 +308,8 @@
         }
         #{&}__content {
           background: #fff;
+          max-height: 211px;
+          overflow: hidden;
           ul {
             list-style: none;
             margin: 0;
@@ -320,6 +352,24 @@
         }
       }
     }
+    .cover {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      z-index: 99;
+    }
+  }
+  
+  .fold-enter-active,
+  .fold-leave-active {
+    transition: all .5s
+  }
+  
+  .fold-enter,
+  .fold-leave-active {
+    transform: translate3d(0, 100%, 0)
   }
 
 </style>
