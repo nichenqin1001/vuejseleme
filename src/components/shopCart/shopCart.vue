@@ -35,7 +35,7 @@
       </div>
     </transition-group>
     <transition name="custom-classes-transition" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <div class="cover" v-show="!fold"></div>
+      <div @click="listContentShow" class="cover" v-show="!fold"></div>
     </transition>
   </div>
 </template>
@@ -152,8 +152,12 @@
         this.selectedFoods.forEach((food) => {
           food.count = 0
         })
+        this.fold = true
       },
       listContentShow() {
+        if (!this.listShow) {
+          return
+        }
         this.fold = (this.fold) ? '' : true
       }
     }
@@ -282,7 +286,7 @@
       position: fixed;
       bottom: 46px;
       width: 100%;
-      z-index: 1;
+      z-index: 99;
       @at-root {
         #{&}__header {
           height: 40px;
@@ -358,7 +362,8 @@
       left: 0;
       height: 100%;
       width: 100%;
-      z-index: 99;
+      z-index: 98;
+      background: rgba(7, 17, 27, .6);
     }
   }
   

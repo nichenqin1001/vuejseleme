@@ -90,15 +90,4 @@
     }
   }
 
-  .fold-enter-active,
-  .fold-leave-active {
-    transition: all .5s
-  }
-
-  .fold-enter,
-  .fold-leave-active {
-    opacity: 0;
-    transform: translate3d(0, 100%, 0)
-  }
-
 </style>
