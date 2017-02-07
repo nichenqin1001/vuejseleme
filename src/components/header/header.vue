@@ -261,6 +261,7 @@
         overflow: auto;
         background: rgba(7, 17, 27, 0.8);
         text-align: center;
+        z-index: 101;
         @at-root {
           #{&}-content {
             flex: 1;

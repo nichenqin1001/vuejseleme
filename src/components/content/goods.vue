@@ -36,7 +36,7 @@
       </div>
     </div>
     <transition name="custom-classes-transition" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
-      <food :selectedFood="selectedFood" v-show="this.$store.getters.getShowFoodDetail"></food>
+      <food @add="_drop()" :selectedFood="selectedFood" v-show="this.$store.getters.getShowFoodDetail"></food>
     </transition>
     <shopCart ref="shopCart" :seller="seller" :selectedFoods="selectedFoods"></shopCart>
   </div>

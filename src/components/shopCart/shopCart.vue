@@ -175,6 +175,7 @@
     left: 0;
     width: 100%;
     height: 46px;
+    z-index: 100;
     .content {
       @extend %flex-center;
       flex-flow: row;

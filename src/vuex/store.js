@@ -12,7 +12,8 @@ const state = {
     left: 0
   },
   showFoodsDetail: false,
-  selectedFood: {}
+  selectedFood: {},
+  textOnly: true
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -29,6 +30,9 @@ const mutations = {
   },
   FRESH_SELECTED_FOOD(state, food) {
     state.selectedFood = food
+  },
+  TOGGLE_TEXT_ONLY(state) {
+    state.textOnly = !state.textOnly
   }
 }
 
@@ -52,6 +56,11 @@ const actions = {
     commit
   }, food) {
     commit('FRESH_SELECTED_FOOD', food)
+  },
+  toggleTextOnly({
+    commit
+  }) {
+    commit('TOGGLE_TEXT_ONLY')
   }
 }
 
@@ -64,6 +73,9 @@ const getters = {
   },
   getSelectedFood(state) {
     return state.selectedFood
+  },
+  getTextOnly(state) {
+    return state.textOnly
   }
 }
 

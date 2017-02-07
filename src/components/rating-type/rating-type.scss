@@ -1,0 +1,28 @@
+@import '../../common/scss/variables.scss';
+.rating {
+  text-align: left;
+  padding: 18px;
+  @at-root {
+    #{&}__type {}
+    #{&}__filter {
+      color: $shop-cart-active-background;
+    }
+    #{&}__filter_status_all {
+      color: rgb(147, 153, 159);
+    }
+    #{&}__comments {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      @at-root{
+        #{&}-comment{
+          padding: 16px 0;
+          flex-flow: row;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}
