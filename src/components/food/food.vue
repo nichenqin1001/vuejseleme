@@ -64,7 +64,7 @@
         this.$store.dispatch('toggleFoodDetail', false)
       },
       addFood() {
-        if (this.selectedFood.count) {
+        if (!this.selectedFood.count) {
           return
         } else {
           this.$emit('add')
@@ -76,6 +76,6 @@
 
 </script>
 <style scoped lang="scss">
-  @import './food.scss'
+  @import './food.scss';
 
 </style>

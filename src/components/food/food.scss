@@ -8,6 +8,7 @@
   z-index: 90;
   width: 100%;
   background-color: #f3f5f7;
+  text-align: left;
   @at-root {
     #{&}__header {
       position: relative;
@@ -114,12 +115,18 @@
         }
       }
     }
-    #{&}__ratins {
+    #{&}__ratings {
+      padding-top: 18px;
+      background-color: #fff;
+      border-top: 1px solid $line-color;
+      border-bottom: 1px solid $line-color;
       @at-root {
-        #{&}-title {}
-        #{&}-type {}
-        #{&}-filter {}
-        #{&}-ratings {}
+        #{&}-title {
+          margin-left: 18px;
+          margin-bottom: 6px;
+          font-size: 14px;font-weight: 700;
+          color: rgb(7, 17, 27);
+        }
       }
     }
   }

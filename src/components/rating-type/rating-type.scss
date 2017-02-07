@@ -1,11 +1,32 @@
 @import '../../common/scss/variables.scss';
 .rating {
   text-align: left;
-  padding: 18px;
+  margin-left: 18px;
   @at-root {
-    #{&}__type {}
+    #{&}__type {
+      display: flex;
+      align-items: center;
+      margin-top: 18px;
+      margin-bottom: 18px;
+      @at-root {
+        #{&}-text {
+          box-sizing: border-box;
+          font-size: 12px;
+          color: rgb(255, 255, 255);
+          line-height: 16px;
+          padding: 8px 12px;
+          background: $shop-cart-active-background;
+          border-radius: 2px;
+          margin-right: 8px;
+        }
+      }
+    }
     #{&}__filter {
+      padding: 12px 0;
+      border-top: 1px solid $line-color;
+      border-bottom: 1px solid $line-color;
       color: $shop-cart-active-background;
+      font-size: 12px;
     }
     #{&}__filter_status_all {
       color: rgb(147, 153, 159);
@@ -14,15 +35,63 @@
       padding: 0;
       margin: 0;
       list-style: none;
-      @at-root{
-        #{&}-comment{
+      @at-root {
+        #{&}-comment {
           padding: 16px 0;
           flex-flow: row;
           display: flex;
           align-items: center;
           justify-content: space-between;
+          border-bottom: 1px solid $line-color;
+          @at-root {
+            #{&}_left {
+              @at-root {
+                #{&}__date {
+                  font-size: 10px;
+                  color: rgb(147, 153, 159);
+                  line-height: 12px;
+                  margin-bottom: 6px;
+                }
+                #{&}__comment {
+                  font-size: 12px;
+                  color: rgb(7, 17, 27);
+                }
+              }
+            }
+            #{&}_right {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 18px;
+              @at-root {
+                #{&}_username {
+                  font-size: 10px;
+                  color: rgb(147, 153, 159);
+                  line-height: 12px;
+                }
+                #{&}_avatar {
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  margin-left: 6px;
+                }
+              }
+            }
+          }
         }
       }
     }
   }
+}
+
+.icon-thumb_up {
+  font-size: 12px;
+  color: $shop-cart-active-background;
+  line-height: 24px;
+}
+
+.icon-thumb_down {
+  font-size: 12px;
+  color: rgb(147, 153, 159);
+  line-height: 24px;
 }
