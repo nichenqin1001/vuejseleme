@@ -34,29 +34,32 @@
   import cartcontrol from 'components/cartControl/cartControl'
   import ratingtype from 'components/rating-type/rating-type'
   export default {
-
     name: 'food',
+    data() {
+      return {
+        detailScroll: ''
+      }
+    },
     props: ['selectedFood'],
     components: {
       cartcontrol,
       ratingtype
     },
-    computed: {
-      detailScroll() {
-        let detailScroll = ''
-        if (this.$store.getters.getShowFoodDetail === true) {
-          if (!detailScroll) {
-            detailScroll = new Bscroll(this.$refs.food, {
+    updated() {
+      this._updateDetailScroll()
+    },
+    methods: {
+      _updateDetailScroll() {
+        if (this.$store.getters.getShowFoodDetail) {
+          if (!this.detailScroll) {
+            this.detailScroll = new Bscroll(this.$refs.food, {
               click: true
             })
           } else {
-            detailScroll.refresh()
+            this.detailScroll.refresh()
           }
         }
-        return detailScroll
-      }
-    },
-    methods: {
+      },
       exitFoodDetail() {
         this.$store.dispatch('toggleFoodDetail', false)
       },
