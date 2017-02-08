@@ -43,7 +43,7 @@
         <div class="header__cover-content">
           <h1 class="header__cover-content_name">{{seller.name}}</h1>
           <div class="header__cover-content_star">
-            <v-star v-bind:score="seller.score"></v-star>
+            <v-star v-bind:score="seller.score" :size="48"></v-star>
           </div>
           <div class="header__cover-content_title">
             <div class="header__cover-content_title_text">优惠信息</div>

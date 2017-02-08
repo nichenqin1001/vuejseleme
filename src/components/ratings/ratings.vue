@@ -9,14 +9,14 @@
       <div class="ratings__overview-right">
         <div class="ratings__overview-right_service">
           服务态度
-          <star :score="seller.score"></star>
+          <star :score="seller.score" :size="36"></star>
           <div class="ratings__overview-right_service_score">
             {{seller.score}}
           </div>
         </div>
         <div class="ratings__overview-right_food">
           食物评分
-          <star :score="seller.foodScore"></star>
+          <star :score="seller.foodScore" :size="36"></star>
           <div class="ratings__overview-right_food_score">
             {{seller.foodScore}}
           </div>
