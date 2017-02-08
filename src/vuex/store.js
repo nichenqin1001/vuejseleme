@@ -14,10 +14,7 @@ const state = {
   showFoodsDetail: false,
   selectedFood: {},
   textOnly: true,
-  rateType: {
-    positive: 0,
-    negtive: 1
-  },
+  rateType: 2,
   detailScroll: ''
 }
 
@@ -41,6 +38,9 @@ const mutations = {
   },
   UPDATE_DETAIL_SCROLL(state, scroll) {
     state.detailScroll = scroll
+  },
+  UPDATE_RATETYPE(state, rateType) {
+    state.rateType = rateType
   }
 }
 
@@ -74,6 +74,11 @@ const actions = {
     commit
   }, scroll) {
     commit('UPDATE_DETAIL_SCROLL', scroll)
+  },
+  updateRatetype({
+    commit
+  }, rateType) {
+    commit('UPDATE_RATETYPE', rateType)
   }
 }
 

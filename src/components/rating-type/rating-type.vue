@@ -1,15 +1,15 @@
 <template>
   <div id='rating' class='rating'>
     <div class="rating__type">
-      <span class="rating__type-text rating__type-text_i_1">
+      <span class="rating__type-text rating__type-text_i_1" :class="{active:rateType===2}" @click="toggleRateType(2)">
         全部
         <span v-if="ratings" class="rating__type-text_count">{{ratings.length}}</span>
       </span>
-      <span class="rating__type-text rating__type-text_i_2">
+      <span class="rating__type-text rating__type-text_i_2" :class="{active:rateType===0}" @click="toggleRateType(0)">
         满意
         <span v-if="ratings" class="rating__type-text_count">{{positiveRatings.length}}</span>
       </span>
-      <span class="rating__type-text rating__type-text_i_3">
+      <span class="rating__type-text rating__type-text_i_3" :class="{active:rateType===1}" @click="toggleRateType(1)">
         不满意
         <span v-if="ratings" class="rating__type-text_count">{{negtiveRatings.length}}</span>
       </span>
@@ -34,12 +34,13 @@
         </div>
       </li>
       </transition-group>
+      <div v-show="!ratings||!ratings.length" class="rating__no-comment">暂无评价</div>
   </div>
 </template>
 <script>
   export default {
     name: 'rating',
-    props: ['ratings', 'detailScroll'],
+    props: ['ratings'],
     computed: {
       textOnly() {
         return this.$store.getters.getTextOnly
@@ -59,14 +60,17 @@
         })
         return ratingTime
       },
+      rateType() {
+        return this.$store.getters.getRateType
+      },
       positiveRatings() {
         return this.ratings.filter((rating) => {
-          return rating.rateType === this.$store.getters.getRateType.positive
+          return rating.rateType === 0
         })
       },
       negtiveRatings() {
         return this.ratings.filter((rating) => {
-          return rating.rateType === this.$store.getters.getRateType.negtive
+          return rating.rateType === 1
         })
       },
       textOnlyRatings() {
@@ -85,9 +89,15 @@
       toggleComment(type, text) {
         if (this.textOnly && !text) {
           return false
-        } else {
-          return true
         }
+        if (this.rateType === 2) {
+          return true
+        } else {
+          return type === this.rateType
+        }
+      },
+      toggleRateType(rateType) {
+        this.$store.dispatch('updateRatetype', rateType)
       }
     }
   }

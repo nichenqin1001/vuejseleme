@@ -23,7 +23,7 @@
       </div>
       <div class="food__ratings">
         <div class="food__ratings-title">商品评价</div>
-        <ratingtype :ratings="selectedFood.ratings" :detailScroll="detailScroll"></ratingtype>
+        <ratingtype :ratings="selectedFood.ratings"></ratingtype>
       </div>
     </div>
   </div>
