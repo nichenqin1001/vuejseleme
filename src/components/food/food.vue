@@ -23,7 +23,7 @@
       </div>
       <div class="food__ratings">
         <div class="food__ratings-title">商品评价</div>
-        <ratingtype :ratings="selectedFood.ratings"></ratingtype>
+        <ratingtype :ratings="selectedFood.ratings" :foodDOM="foodDOM"></ratingtype>
       </div>
     </div>
   </div>
@@ -46,10 +46,10 @@
       ratingtype
     },
     updated() {
-      this._updateDetailScroll()
+      this._setDetailScroll()
     },
     methods: {
-      _updateDetailScroll() {
+      _setDetailScroll() {
         if (this.$store.getters.getShowFoodDetail) {
           if (!this.detailScroll) {
             this.detailScroll = new Bscroll(this.$refs.food, {

@@ -13,7 +13,11 @@ const state = {
   },
   showFoodsDetail: false,
   selectedFood: {},
-  textOnly: true
+  textOnly: true,
+  rateType: {
+    positive: 0,
+    negtive: 1
+  }
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -76,6 +80,9 @@ const getters = {
   },
   getTextOnly(state) {
     return state.textOnly
+  },
+  getRateType(state) {
+    return state.rateType
   }
 }
 
