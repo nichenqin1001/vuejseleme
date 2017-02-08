@@ -27,6 +27,9 @@
             align-items: center;
             justify-content: center;
             border-right: 1px solid $line-color;
+            @media only screen and (max-width: 320px) {
+              flex: 0 0 110px;
+            }
             @at-root {
               #{&}_score {
                 font-size: 24px;
@@ -51,6 +54,9 @@
             flex: 1;
             justify-content: flex-start;
             padding-left: 24px;
+            @media only screen and (max-width: 320px) {
+              padding-left: 12px;
+            }
             @at-root {
               #{&}_service,
               #{&}_food,
