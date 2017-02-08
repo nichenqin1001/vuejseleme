@@ -15,7 +15,8 @@ const state = {
   selectedFood: {},
   textOnly: true,
   rateType: 2,
-  detailScroll: ''
+  detailScroll: '',
+  ratingScroll: ''
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -38,6 +39,9 @@ const mutations = {
   },
   UPDATE_DETAIL_SCROLL(state, scroll) {
     state.detailScroll = scroll
+  },
+  UPDATE_RATING_SCROLL(state, scroll) {
+    state.ratingScroll = scroll
   },
   UPDATE_RATETYPE(state, rateType) {
     state.rateType = rateType
@@ -75,6 +79,11 @@ const actions = {
   }, scroll) {
     commit('UPDATE_DETAIL_SCROLL', scroll)
   },
+  updateRatingScroll({
+    commit
+  }, scroll) {
+    commit('UPDATE_RATING_SCROLL', scroll)
+  },
   updateRatetype({
     commit
   }, rateType) {
@@ -100,6 +109,9 @@ const getters = {
   },
   getDetailScroll(state) {
     return state.detailScroll
+  },
+  getRatingScroll(state) {
+    return state.ratingScroll
   }
 }
 

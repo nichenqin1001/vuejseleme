@@ -37,7 +37,7 @@ apiRouter.get('/goods', function (req, res) {
   })
 })
 
-apiRouter.get('/raings', function (req, res) {
+apiRouter.get('/ratings', function (req, res) {
   res.json({
     errno: 0,
     data: ratings

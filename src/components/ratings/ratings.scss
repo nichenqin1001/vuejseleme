@@ -5,6 +5,7 @@
     bottom: 0;
     width: 100%;
     background: #f3f5f7;
+    overflow: hidden;
     @at-root {
       #{&}__overview {
         display: flex;
@@ -103,6 +104,9 @@
             }
           }
         }
+      }
+      .rating-wrapper {
+        padding-top: 18px;
       }
     }
   }
