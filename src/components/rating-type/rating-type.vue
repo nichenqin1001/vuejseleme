@@ -82,9 +82,7 @@
     methods: {
       toggleFilter() {
         this.$store.dispatch('toggleTextOnly')
-        this.$nextTick(() => {
-          this.$store.getters.getDetailScroll.refresh()
-        })
+        this._freshDetailScroll()
       },
       toggleComment(type, text) {
         if (this.textOnly && !text) {
@@ -98,6 +96,12 @@
       },
       toggleRateType(rateType) {
         this.$store.dispatch('updateRatetype', rateType)
+        this._freshDetailScroll()
+      },
+      _freshDetailScroll() {
+        this.$nextTick(() => {
+          this.$store.getters.getDetailScroll.refresh()
+        })
       }
     }
   }

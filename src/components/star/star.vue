@@ -26,7 +26,6 @@
         if (decNum === 5) {
           stars[intNum - 1] = '2'
         }
-
         return stars
       }
     }

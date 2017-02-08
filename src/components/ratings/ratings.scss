@@ -1,0 +1,54 @@
+@import '../../common/scss/variables.scss';
+.ratings {
+  position: absolute;
+  top: 178px;
+  bottom: 0;
+  width: 100%;
+  @at-root {
+    #{&}__overview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 18px 0;
+      box-sizing: border-box;
+      @at-root {
+        #{&}-left,
+        #{&}-right {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          box-sizing: border-box;
+          padding: 0 24px;
+        }
+        #{&}-left {
+          flex: 0 0 36.7%;
+          border-right: 1px solid $line-color;
+          @at-root {
+            #{&}_score {
+              font-size: 24px;
+              color: rgb(255, 153, 0);
+              line-height: 28px;
+            }
+            #{&}_title {
+              margin: 6px auto 8px;
+              font-size: 12px;
+              color: rgb(7, 17, 27);
+              line-height: 10px;
+            }
+            #{&}_rank {
+              font-size: 10px;
+              color: rgb(7, 17, 27);
+              line-height: 10px;
+              margin-bottom: 6px;
+            }
+          }
+        }
+        #{&}-right {
+          flex: 0 0 63.3%;
+        }
+      }
+    }
+  }
+}
