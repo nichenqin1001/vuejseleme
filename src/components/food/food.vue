@@ -23,7 +23,7 @@
       </div>
       <div class="food__ratings">
         <div class="food__ratings-title">商品评价</div>
-        <ratingtype :ratings="selectedFood.ratings" :foodDOM="foodDOM"></ratingtype>
+        <ratingtype :ratings="selectedFood.ratings" :detailScroll="detailScroll"></ratingtype>
       </div>
     </div>
   </div>
@@ -55,8 +55,11 @@
             this.detailScroll = new Bscroll(this.$refs.food, {
               click: true
             })
+            this.$store.dispatch('updateDetailScroll', this.detailScroll)
           } else {
+            console.log('refresh')
             this.detailScroll.refresh()
+            this.$store.dispatch('updateDetailScroll', this.detailScroll)
           }
         }
       },

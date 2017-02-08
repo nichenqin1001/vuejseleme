@@ -19,8 +19,9 @@
       <span class="rating__filter__text">只看有内容的评价</span>
       <span v-if="ratings" class="rating__filter__text_count">{{textOnlyRatings.length}}</span>
     </div>
-    <ul class="rating__comments">
-      <li v-if="toggleComment(rating.rateType,rating.text)" class="rating__comments-comment" v-for="(rating,index) in ratings">
+    <transition-group class="rating__comments" tag='ul' name="custom-classes-transition" enter-active-class='animated bounceInLeft'
+      leave-active-class='animated bounceOutLeft'>
+      <li :key='rating.rateTime' v-if="toggleComment(rating.rateType,rating.text)" class="rating__comments-comment" v-for="(rating,index) in ratings">
         <div class="rating__comments-comment_left">
           <div class="rating__comments-comment_left__date">{{ratingTime[index]}}</div>
           <div class="rating__comments-comment_left__comment">
@@ -32,13 +33,13 @@
           <img :src="rating.avatar" alt="" class="rating__comments-comment_right_avatar">
         </div>
       </li>
-    </ul>
+      </transition-group>
   </div>
 </template>
 <script>
   export default {
     name: 'rating',
-    props: ['ratings', 'foodDOM'],
+    props: ['ratings', 'detailScroll'],
     computed: {
       textOnly() {
         return this.$store.getters.getTextOnly
@@ -77,6 +78,9 @@
     methods: {
       toggleFilter() {
         this.$store.dispatch('toggleTextOnly')
+        this.$nextTick(() => {
+          this.$store.getters.getDetailScroll.refresh()
+        })
       },
       toggleComment(type, text) {
         if (this.textOnly && !text) {

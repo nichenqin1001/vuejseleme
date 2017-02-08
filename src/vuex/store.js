@@ -17,7 +17,8 @@ const state = {
   rateType: {
     positive: 0,
     negtive: 1
-  }
+  },
+  detailScroll: ''
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -37,6 +38,9 @@ const mutations = {
   },
   TOGGLE_TEXT_ONLY(state) {
     state.textOnly = !state.textOnly
+  },
+  UPDATE_DETAIL_SCROLL(state, scroll) {
+    state.detailScroll = scroll
   }
 }
 
@@ -65,6 +69,11 @@ const actions = {
     commit
   }) {
     commit('TOGGLE_TEXT_ONLY')
+  },
+  updateDetailScroll({
+    commit
+  }, scroll) {
+    commit('UPDATE_DETAIL_SCROLL', scroll)
   }
 }
 
@@ -83,6 +92,9 @@ const getters = {
   },
   getRateType(state) {
     return state.rateType
+  },
+  getDetailScroll(state) {
+    return state.detailScroll
   }
 }
 
