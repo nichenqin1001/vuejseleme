@@ -8,20 +8,27 @@
       </div>
       <div class="ratings__overview-right">
         <div class="ratings__overview-right_service">
-          服务态度
+          <div class="ratings__overview-right_service_text">服务态度</div>
           <star :score="seller.score" :size="36"></star>
           <div class="ratings__overview-right_service_score">
             {{seller.score}}
           </div>
         </div>
         <div class="ratings__overview-right_food">
-          食物评分
+          <div class="ratings__overview-right_service_text">商品评分</div>
           <star :score="seller.foodScore" :size="36"></star>
           <div class="ratings__overview-right_food_score">
             {{seller.foodScore}}
           </div>
         </div>
-        <div class="ratings__overview-right_delivertime"></div>
+        <div class="ratings__overview-right_deliverytime">
+          <div class="ratings__overview-right_deliverytime_text">
+            送达时间
+          </div>
+          <div class="ratings__overview-right_deliverytime_time">
+            {{seller.deliveryTime}}分钟
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -38,6 +45,6 @@
 
 </script>
 <style scoped lang="scss">
-  @import './ratings.scss'
+  @import './ratings.scss';
 
 </style>
