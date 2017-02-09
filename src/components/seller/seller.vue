@@ -95,16 +95,10 @@
       toggleCollection() {
         this.$store.dispatch('toggleCollection')
       },
-      _setScroll(DOM, targetScroll) {
-        var scroll = new Bscroll(DOM, {
-          click: true
-        })
-        this.$store.dispatch(targetScroll, scroll)
-      },
-      _setHorizonScroll(DOM, targetScroll) {
+      _setScroll(DOM, targetScroll, horizon) {
         var scroll = new Bscroll(DOM, {
           click: true,
-          scrollX: true
+          scrollX: horizon
         })
         this.$store.dispatch(targetScroll, scroll)
       },
@@ -117,9 +111,9 @@
     },
     created() {
       this.$nextTick(() => {
-        this._setScroll(this.$refs.sellerScroll, 'updateSellerScroll')
+        this._setScroll(this.$refs.sellerScroll, 'updateSellerScroll', false)
         this._setGalleryWidth()
-        this._setHorizonScroll(this.$refs.imagesWrapper, 'updateImageScroll')
+        this._setScroll(this.$refs.imagesWrapper, 'updateImageScroll', true)
       })
     }
   }

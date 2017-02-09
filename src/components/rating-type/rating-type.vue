@@ -48,19 +48,19 @@
         })
       },
       fatherScroll() {
-        return this.$store.getters.getFatherScroll
+        return this.$store.state.rateTypeFatherScroll
       }
     },
     methods: {
       toggleFilter(fatherScroll) {
         this.$store.dispatch('toggleTextOnly')
-        this._freshDetailScroll(fatherScroll)
+        this._freshFatherScroll(fatherScroll)
       },
       toggleRateType(rateType, fatherScroll) {
         this.$store.dispatch('updateRatetype', rateType)
-        this._freshDetailScroll(fatherScroll)
+        this._freshFatherScroll(fatherScroll)
       },
-      _freshDetailScroll(fatherScroll) {
+      _freshFatherScroll(fatherScroll) {
         fatherScroll.refresh()
       }
     }

@@ -113,10 +113,21 @@
     },
     methods: {
       _setRatingScroll() {
-        var scroll = new Bscroll(this.$refs.rating, {
-          click: true
-        })
-        this.$store.dispatch('updateRatingScroll', scroll)
+        if (!this.$store.state.ratingScroll) {
+          var scroll = new Bscroll(this.$refs.rating, {
+            click: true
+          })
+          this.$store.dispatch('updateRatingScroll', scroll)
+        } else {
+          this.$store.state.ratingScroll.refresh()
+        }
+      },
+      _setFatherScroll() {
+        if (this.$store.state.rateTypeFatherScroll !== this.$store.state.ratingScroll) {
+          this.$store.dispatch('updateFatherScroll', this.$store.getters.getRatingScroll)
+        } else {
+          return
+        }
       },
       toggleComment(type, text) {
         if (this.textOnly && !text) {
@@ -131,7 +142,7 @@
     },
     updated() {
       this._setRatingScroll()
-      this.$store.dispatch('updateFatherScroll', this.$store.getters.getRatingScroll)
+      this._setFatherScroll()
     }
   }
 

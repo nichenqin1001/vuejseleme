@@ -86,21 +86,27 @@
     },
     updated() {
       this._setDetailScroll()
-      this.$store.dispatch('updateFatherScroll', this.$store.getters.getDetailScroll)
+      this._setFatherScroll()
     },
     methods: {
       _setDetailScroll() {
         if (this.$store.getters.getShowFoodDetail) {
-          if (!this.detailScroll) {
-            this.detailScroll = new Bscroll(this.$refs.food, {
+          if (!this.$store.state.detailScroll) {
+            let scroll = new Bscroll(this.$refs.food, {
               click: true
             })
-            this.$store.dispatch('updateDetailScroll', this.detailScroll)
+            this.$store.dispatch('updateDetailScroll', scroll)
           } else {
-            console.log('refresh')
-            this.detailScroll.refresh()
-            this.$store.dispatch('updateDetailScroll', this.detailScroll)
+            this.$store.state.detailScroll.refresh()
+            console.log('detailscrollrefresh')
           }
+        }
+      },
+      _setFatherScroll() {
+        if (this.$store.state.rateTypeFatherScroll !== this.$store.state.detailScroll) {
+          this.$store.dispatch('updateFatherScroll', this.$store.state.detailScroll)
+        } else {
+          return
         }
       },
       exitFoodDetail() {
