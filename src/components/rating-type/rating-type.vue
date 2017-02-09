@@ -14,7 +14,7 @@
         <span v-if="ratings" class="rating__type-text_count">{{negtiveRatings.length}}</span>
       </span>
     </div>
-    <div @click.stop.prevent='toggleFilter' :class="{'rating__filter_status_all':!textOnly}" class="rating__filter">
+    <div @click='toggleFilter(fatherScroll)' :class="{'rating__filter_status_all':!textOnly}" class="rating__filter">
       <i class="icon-check_circle"></i>
       <span class="rating__filter__text">只看有内容的评价</span>
       <span v-if="ratings" class="rating__filter__text_count">{{textOnlyRatings.length}}</span>

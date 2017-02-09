@@ -35,16 +35,28 @@
       <rating class="ratings__rating" :ratings="ratings"></rating>
       <transition-group class="ratings__comments" tag='ul' name="custom-classes-transition" enter-active-class='animated bounceInLeft'
         leave-active-class='animated bounceOutLeft'>
-        <li :key='rating.rateTime' v-if="toggleComment(rating.rateType,rating.text)" class="rating__comments-comment" v-for="(rating,index) in ratings">
-          <div class="rating__comments-comment_left">
-            <div class="rating__comments-comment_left__date">{{ratingTime[index]}}</div>
-            <div class="rating__comments-comment_left__comment">
-              <i :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}"></i> {{rating.text}}
+        <li :key='rating.rateTime' v-if="toggleComment(rating.rateType,rating.text)" class="ratings__comments-comment" v-for="(rating,index) in ratings">
+          <img :src="rating.avatar" alt="" class="ratings__comments-comment_avatar">
+          <div class="ratings__comments-comment_username">
+            <div class="ratings__comments-comment_username_name">
+              {{rating.username}}
+            </div>
+            <div class="ratings__comments-comment_username_date">
+              {{ratingTime[index]}}
             </div>
           </div>
-          <div class="rating__comments-comment_right">
-            <div class="rating__comments-comment_right_username">{{rating.username}}</div>
-            <img :src="rating.avatar" alt="" class="rating__comments-comment_right_avatar">
+          <div class="ratings__comments-comment_score">
+            <star :size="24" :score="rating.score"></star>
+            <div v-if="rating.deliveryTime" class="ratings__comments-comment_score_deliverytime">
+              {{rating.deliveryTime}}分钟送达
+            </div>
+          </div>
+          <div class="ratings__comments-comment_text">{{rating.text}}</div>
+          <div class="ratings__comments-comment_recommend">
+            <i :class="{'icon-thumb_up':rating.rateType===0,'icon-thumb_down':rating.rateType===1}" class="icon"></i>
+            <div class="ratings__comments-comment_recommend_item" v-for="(recommend,index) in rating.recommend">
+              {{recommend}}
+            </div>
           </div>
         </li>
         </transition-group>
@@ -64,6 +76,21 @@
       rating
     },
     computed: {
+      ratingTime() {
+        let ratingTime = []
+        this.ratings.forEach((rating) => {
+          var date = new Date(rating.rateTime)
+          let Y = date.getFullYear() + '-'
+          let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
+          let D = date.getDate() + ' '
+          let h = date.getHours() < 10 ? '0' + date.getHours() + ':' : date.getHours() + ':'
+          let m = date.getMinutes() < 10 ? '0' + date.getMinutes() + ':' : date.getMinutes() + ':'
+          let s = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds()
+          var newTime = Y + M + D + h + m + s
+          ratingTime.push(newTime)
+        })
+        return ratingTime
+      },
       textOnly() {
         return this.$store.getters.getTextOnly
       },
@@ -85,21 +112,6 @@
       })
     },
     methods: {
-      ratingTime() {
-        let ratingTime = []
-        this.selectedFood.ratings.forEach((rating) => {
-          var date = new Date(rating.rateTime)
-          let Y = date.getFullYear() + '-'
-          let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-'
-          let D = date.getDate() + ' '
-          let h = date.getHours() + ':'
-          let m = date.getMinutes() + ':'
-          let s = date.getSeconds()
-          var newTime = Y + M + D + h + m + s
-          ratingTime.push(newTime)
-        })
-        return ratingTime
-      },
       _setRatingScroll() {
         var scroll = new Bscroll(this.$refs.rating, {
           click: true

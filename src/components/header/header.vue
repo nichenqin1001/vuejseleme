@@ -92,7 +92,7 @@
   }
 
 </script>
-<style lang="scss">
+<style scoped lang="scss">
   @import '../../common/scss/placeholder.scss';
   .header {
     position: relative;
@@ -274,6 +274,9 @@
               }
               #{&}_star {
                 margin: 20px 0;
+              }
+              .stars{
+                justify-content: center;
               }
               #{&}_title {
                 display: flex;

@@ -4,3 +4,4 @@ dist/
 npm-debug.log
 resource
 *.png
+debug.log
