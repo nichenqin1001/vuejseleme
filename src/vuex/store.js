@@ -22,7 +22,8 @@ const state = {
   detailScroll: '',
   ratingScroll: '',
   rateTypeFatherScroll: '',
-  sellerScroll: ''
+  sellerScroll: '',
+  imageScroll: ''
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -51,6 +52,9 @@ const mutations = {
   },
   UPDATE_SELLER_SCROLL(state, scroll) {
     state.sellerScroll = scroll
+  },
+  UPDATE_IMAGE_SCROLL(state, scroll) {
+    state.imageScroll = scroll
   },
   UPDATE_RATETYPE(state, rateType) {
     state.rateType = rateType
@@ -104,6 +108,11 @@ const actions = {
   }, scroll) {
     commit('UPDATE_SELLER_SCROLL', scroll)
   },
+  updateImageScroll({
+    commit
+  }, scroll) {
+    commit('UPDATE_IMAGE_SCROLL', scroll)
+  },
   updateRatetype({
     commit
   }, rateType) {
@@ -145,6 +154,9 @@ const getters = {
   },
   getSellerScroll(state) {
     return state.sellerScroll
+  },
+  getImageScroll(state) {
+    return state.imageScroll
   },
   getFatherScroll(state) {
     return state.rateTypeFatherScroll

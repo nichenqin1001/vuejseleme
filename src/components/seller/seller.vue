@@ -53,7 +53,16 @@
         </div>
         <supports class="seller__notice_supports" :supports="seller.supports"></supports>
       </div>
-      <div class="seller__site"></div>
+      <div class="seller__site">
+        <h1 class="seller__site_title">商家实景</h1>
+        <div class="images-wrapper" ref="imagesWrapper">
+          <ul class="seller__site_images" ref="gallery">
+            <li class="seller__site_images_image" v-for="(image,index) in seller.pics">
+              <img :src="image" alt="">
+            </li>
+          </ul>
+        </div>
+      </div>
       <div class="seller__info"></div>
     </div>
   </div>
@@ -81,16 +90,31 @@
       toggleCollection() {
         this.$store.dispatch('toggleCollection')
       },
-      _setSellerScroll() {
-        var scroll = new Bscroll(this.$refs.sellerScroll, {
+      _setScroll(DOM, targetScroll) {
+        var scroll = new Bscroll(DOM, {
           click: true
         })
-        this.$store.dispatch('updateSellerScroll', scroll)
+        this.$store.dispatch(targetScroll, scroll)
+      },
+      _setHorizonScroll(DOM, targetScroll) {
+        var scroll = new Bscroll(DOM, {
+          click: true,
+          scrollX: true
+        })
+        this.$store.dispatch(targetScroll, scroll)
+      },
+      _setGalleryWidth() {
+        let imageWidth = 120
+        let imageMargin = 6
+        let width = (imageWidth + imageMargin) * this.seller.pics.length - imageMargin
+        this.$refs.gallery.style.width = width + 'px'
       }
     },
     created() {
       this.$nextTick(() => {
-        this._setSellerScroll()
+        this._setScroll(this.$refs.sellerScroll, 'updateSellerScroll')
+        this._setGalleryWidth()
+        this._setHorizonScroll(this.$refs.imagesWrapper, 'updateImageScroll')
       })
     }
   }
