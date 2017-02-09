@@ -1,0 +1,154 @@
+@import '../../common/scss/variables.scss';
+.seller {
+  background-color: #f3f5f7;
+  @at-root {
+    #{&}__header {
+      background-color: #fff;
+      border-bottom: 1px solid $line-color;
+      margin-bottom: 18px;
+      @at-root {
+        #{&}_title {
+          position: relative;
+          margin: 0 18px;
+          padding: 18px 0;
+          text-align: left;
+          border-bottom: 1px solid $line-color;
+          @at-root {
+            #{&}_name {
+              font-size: 14px;
+              color: $font-color;
+              line-height: 14px;
+              margin-bottom: 8px;
+            }
+            #{&}_score {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              font-size: 10px;
+              color: rgb(77, 85, 93);
+              @at-root {
+                .stars {
+                  justify-content: space-between !important;
+                  margin-right: 8px;
+                }
+                #{&}_count {
+                  margin-right: 12px;
+                }
+              }
+            }
+            #{&}_heart {
+              position: absolute;
+              top: 18px;
+              right: 18px;
+              text-align: center;
+              margin: auto;
+              width: 50px;
+              @at-root {
+                .icon-favorite {
+                  font-size: 24px;
+                  line-height: 24px;
+                  &.collected {
+                    color: rgb(240, 20, 20);
+                  }
+                }
+                #{&}_text {
+                  margin-top: 4px;
+                  font-size: 10px;
+                  color: rgb(77, 85, 93);
+                  line-height: 10px;
+                }
+              }
+            }
+          }
+        }
+        #{&}_info {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          @at-root {
+            #{&}_item {
+              flex: 1;
+              margin: 18px 0;
+              border-right: 1px solid $line-color;
+              @at-root {
+                #{&}_title {
+                  font-size: 10px;
+                  color: $font-color;
+                  line-height: 10px;
+                  margin-bottom: 4px;
+                }
+                #{&}_num {
+                  font-size: 24px;
+                  font-weight: 200;
+                  color: $font-color;
+                  line-height: 24px;
+                  .unit {
+                    font-size: 10px;
+                  }
+                }
+              }
+              &:last-child {
+                border-right: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    #{&}__notice {
+      background-color: #fff;
+      padding: 18px 18px 0;
+      margin-bottom: 18px;
+      text-align: left;
+      @at-root {
+        #{&}_bulletin {
+          @at-root {
+            #{&}_title {
+              margin: 0;
+              margin-bottom: 8px;
+              font-size: 14px;
+              color: $font-color;
+              line-height: 14px;
+              font-weight: normal;
+            }
+            #{&}_text {
+              padding: 0 12px 12px;
+              margin: 0;
+              font-size: 12px;
+              font-weight: 200;
+              color: rgb(240, 20, 20);
+              line-height: 24px;
+            }
+          }
+        }
+        #{&}_supports {
+          margin: 0;
+          padding: 0;
+          .supports_support {
+            border-bottom: 1px solid $line-color;
+            height: 48px;
+            font-size: 12px;
+            font-weight: 200;
+            color: $font-color;
+            line-height: 16px;
+            &:first-child {
+              border-top: 1px solid $line-color;
+            }
+            img {
+              width: 16px;
+              height: 16px;
+              margin-left: 12px;
+              margin-right: 6px;
+              background-size: contain;
+            }
+          }
+        }
+      }
+    }
+    #{&}__site {
+
+    }
+    #{&}__info {}
+  }
+}

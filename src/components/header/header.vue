@@ -36,9 +36,7 @@
       <img :src="seller.avatar" alt="">
     </div>
     <!--header__background-->
-    <transition name="custom-classes-transition"
-    enter-active-class="animated slideInLeft"
-    leave-active-class="animated slideOutLeft">
+    <transition name="custom-classes-transition" enter-active-class="animated slideInLeft" leave-active-class="animated slideOutLeft">
       <div v-show="coverShow" class="header__cover">
         <div class="header__cover-content">
           <h1 class="header__cover-content_name">{{seller.name}}</h1>
@@ -48,12 +46,7 @@
           <div class="header__cover-content_title">
             <div class="header__cover-content_title_text">优惠信息</div>
           </div>
-          <ul class="header__cover-content_supports" v-if="seller.supports">
-            <li class="header__cover-content_supports_support" v-for="(support,index) in seller.supports">
-              <img :class="'icon-'+clsMap[support.type]" alt="" class="header__cover-content_supports_support_icon">
-              <span class="header__cover-content_supports_support_text">{{support.description}}</span>
-            </li>
-          </ul>
+          <supports v-if="seller.supports" :supports="seller.supports"></supports>
           <div class="header__cover-content_title">
             <div class="header__cover-content_title_text">商家公告</div>
           </div>
@@ -68,13 +61,13 @@
 </template>
 <script>
   import star from 'components/star/star'
+  import supports from 'components/supports/supports'
 
   export default {
     name: 'header',
     data() {
       return {
-        coverShow: false,
-        clsMap: ['decrease', 'discount', 'guarantee', 'invoice', 'special']
+        coverShow: false
       }
     },
     props: ['seller'],
@@ -87,7 +80,13 @@
       }
     },
     components: {
-      'v-star': star
+      'v-star': star,
+      supports
+    },
+    computed: {
+      clsMap() {
+        return this.$store.getters.getClassMap
+      }
     }
   }
 
@@ -275,7 +274,7 @@
               #{&}_star {
                 margin: 20px 0;
               }
-              .stars{
+              .stars {
                 justify-content: center;
               }
               #{&}_title {
