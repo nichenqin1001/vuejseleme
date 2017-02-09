@@ -63,7 +63,12 @@
           </ul>
         </div>
       </div>
-      <div class="seller__info"></div>
+      <div class="seller__info">
+        <h1 class="seller__info_title">商家信息</h1>
+        <ul class="seller__info_text">
+          <li class="seller__info_text_item" v-for="(info,index) in seller.infos">{{info}}</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
