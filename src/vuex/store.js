@@ -12,14 +12,17 @@ const state = {
     left: 0
   },
   clsMap: ['decrease', 'discount', 'guarantee', 'invoice', 'special'],
-  showFoodsDetail: false,
   selectedFood: {},
+  // boolean
   textOnly: true,
+  showFoodsDetail: false,
+  collected: false,
   rateType: 2,
+  // scroller
   detailScroll: '',
   ratingScroll: '',
   rateTypeFatherScroll: '',
-  collected: false
+  sellerScroll: ''
 }
 
 // 创建一个对象存储一系列我们接下来要写的 mutation 函数
@@ -45,6 +48,9 @@ const mutations = {
   },
   UPDATE_RATING_SCROLL(state, scroll) {
     state.ratingScroll = scroll
+  },
+  UPDATE_SELLER_SCROLL(state, scroll) {
+    state.sellerScroll = scroll
   },
   UPDATE_RATETYPE(state, rateType) {
     state.rateType = rateType
@@ -93,6 +99,11 @@ const actions = {
   }, scroll) {
     commit('UPDATE_RATING_SCROLL', scroll)
   },
+  updateSellerScroll({
+    commit
+  }, scroll) {
+    commit('UPDATE_SELLER_SCROLL', scroll)
+  },
   updateRatetype({
     commit
   }, rateType) {
@@ -131,6 +142,9 @@ const getters = {
   },
   getRatingScroll(state) {
     return state.ratingScroll
+  },
+  getSellerScroll(state) {
+    return state.sellerScroll
   },
   getFatherScroll(state) {
     return state.rateTypeFatherScroll

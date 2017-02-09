@@ -1,5 +1,5 @@
 <template>
-  <div class="seller-wrapper">
+  <div class="seller-wrapper" ref="sellerScroll">
     <div id="seller" class="seller">
       <div class="seller__header">
         <div class="seller__header_title">
@@ -59,6 +59,7 @@
   </div>
 </template>
 <script>
+  import Bscroll from 'better-scroll'
   import star from 'components/star/star'
   import supports from 'components/supports/supports'
   export default {
@@ -79,12 +80,23 @@
     methods: {
       toggleCollection() {
         this.$store.dispatch('toggleCollection')
+      },
+      _setSellerScroll() {
+        var scroll = new Bscroll(this.$refs.sellerScroll, {
+          click: true
+        })
+        this.$store.dispatch('updateSellerScroll', scroll)
       }
+    },
+    created() {
+      this.$nextTick(() => {
+        this._setSellerScroll()
+      })
     }
   }
 
 </script>
 <style lang="scss">
-  @import './seller.scss'
+  @import './seller.scss';
 
 </style>

@@ -368,12 +368,12 @@
       background: rgba(7, 17, 27, .6);
     }
   }
-  
+
   .fold-enter-active,
   .fold-leave-active {
     transition: all .5s
   }
-  
+
   .fold-enter,
   .fold-leave-active {
     transform: translate3d(0, 100%, 0)

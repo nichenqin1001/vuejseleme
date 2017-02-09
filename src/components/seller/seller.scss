@@ -1,6 +1,7 @@
 @import '../../common/scss/variables.scss';
 .seller {
   background-color: #f3f5f7;
+  overflow: hidden;
   @at-root {
     #{&}__header {
       background-color: #fff;
@@ -28,7 +29,7 @@
               color: rgb(77, 85, 93);
               @at-root {
                 .stars {
-                  justify-content: space-between !important;
+                  justify-content: space-between;
                   margin-right: 8px;
                 }
                 #{&}_count {
@@ -146,9 +147,17 @@
         }
       }
     }
-    #{&}__site {
-
-    }
+    #{&}__site {}
     #{&}__info {}
   }
+}
+
+.seller-wrapper {
+  position: absolute;
+  top: 178px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
 }
