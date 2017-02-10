@@ -13,7 +13,7 @@
           <span v-if="selectedFood.oldPrice" class="food__content-price_status_old">￥{{selectedFood.oldPrice}}</span>
         </div>
         <div class="food__content-add">
-          <div v-if="!selectedFood.count" class="food__content-add_status_empty" @click="addFood">加入购入车</div>
+          <div v-if="!selectedFood.count" class="food__content-add_status_empty" @click="addFood" ref="addFood">加入购入车</div>
           <cartcontrol :food="selectedFood" v-if="selectedFood.count" class="food__content-add_status_full"></cartcontrol>
         </div>
       </div>
@@ -26,7 +26,7 @@
         <ratingtype :ratings="selectedFood.ratings"></ratingtype>
         <transition-group class="rating__comments" tag='ul' name="custom-classes-transition" enter-active-class='animated bounceInLeft'
           leave-active-class='animated bounceOutLeft'>
-          <li :key='rating.rateTime' v-if="toggleComment(rating.rateType,rating.text)" class="rating__comments-comment" v-for="(rating,index) in selectedFood.ratings">
+          <li :key='index' v-if="toggleComment(rating.rateType,rating.text)" class="rating__comments-comment" v-for="(rating,index) in selectedFood.ratings">
             <div class="rating__comments-comment_left">
               <div class="rating__comments-comment_left__date">{{ratingTime[index]}}</div>
               <div class="rating__comments-comment_left__comment">
@@ -82,6 +82,13 @@
       },
       textOnly() {
         return this.$store.getters.getTextOnly
+      },
+      rect() {
+        let rect = {
+          top: 0,
+          left: 0
+        }
+        return rect
       }
     },
     updated() {
@@ -113,12 +120,14 @@
         this.$store.dispatch('toggleFoodDetail', false)
       },
       addFood() {
+        this.rect.top = this.$refs.addFood.getBoundingClientRect().top
+        this.rect.left = this.$refs.addFood.getBoundingClientRect().left
+        this.$store.dispatch('updateTop', this.rect.clickTop)
+        this.$store.dispatch('updateLeft', this.rect.clickLeft)
         if (!this.selectedFood.count) {
-          return
-        } else {
-          this.$emit('add')
           Vue.set(this.selectedFood, 'count', 1)
         }
+        this.$emit('add')
       },
       toggleComment(type, text) {
         if (this.textOnly && !text) {
