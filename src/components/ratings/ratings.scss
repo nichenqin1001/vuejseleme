@@ -1,0 +1,217 @@
+  @import '../../common/scss/variables.scss';
+  .ratings {
+    position: absolute;
+    top: 178px;
+    bottom: 0;
+    width: 100%;
+    background: #f3f5f7;
+    overflow: hidden;
+    @at-root {
+      #{&}__overview {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        padding: 18px 0;
+        box-sizing: border-box;
+        background: #fff;
+        border-bottom: 1px solid $line-color;
+        margin-bottom: 18px;
+        @at-root {
+          #{&}-left,
+          #{&}-right {
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+          }
+          #{&}-left {
+            flex: 0 0 36.7%;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid $line-color;
+            @media only screen and (max-width: 320px) {
+              flex: 0 0 110px;
+            }
+            @at-root {
+              #{&}_score {
+                font-size: 24px;
+                color: rgb(255, 153, 0);
+                line-height: 28px;
+              }
+              #{&}_title {
+                margin: 6px auto 8px;
+                font-size: 12px;
+                color: rgb(7, 17, 27);
+                line-height: 10px;
+              }
+              #{&}_rank {
+                font-size: 10px;
+                color: rgb(147, 153, 159);
+                line-height: 10px;
+                margin-bottom: 6px;
+              }
+            }
+          }
+          #{&}-right {
+            flex: 1;
+            justify-content: flex-start;
+            padding-left: 24px;
+            @media only screen and (max-width: 320px) {
+              padding-left: 12px;
+            }
+            @at-root {
+              #{&}_service,
+              #{&}_food,
+              #{&}_deliverytime {
+                display: flex;
+                font-size: 12px;
+                line-height: 18px;
+                margin-bottom: 8px;
+                justify-content: flex-start;
+              }
+              #{&}_service {
+                @at-root {
+                  #{&}_text {
+                    margin-right: 8px;
+                    color: rgb(7, 17, 27);
+                  }
+                  #{&}_score {
+                    color: rgb(255, 153, 0);
+                  }
+                }
+              }
+              #{&}_food {
+                @at-root {
+                  #{&}_text {
+                    margin-right: 8px;
+                    color: rgb(7, 17, 27);
+                  }
+                  #{&}_score {
+                    color: rgb(255, 153, 0);
+                  }
+                }
+              }
+              #{&}_deliverytime {
+                @at-root {
+                  #{&}_text {
+                    margin-right: 8px;
+                    color: rgb(7, 17, 27);
+                  }
+                  #{&}_time {
+                    color: rgb(147, 153, 159);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .ratings__rating {
+        background-color: #fff;
+        margin: 0;
+        padding-top: 18px;
+        padding-left: 18px;
+      }
+      #{&}__comments {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        @at-root {
+          #{&}-comment {
+            position: relative;
+            padding: 18px 18px 18px 58px;
+            text-align: left;
+            border-bottom: 1px solid $line-color;
+            &:first-child{
+            border-top: 1px solid $line-color;
+            }
+            @at-root {
+              #{&}_avatar {
+                position: absolute;
+                top: 18px;
+                left: 18px;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+              }
+              #{&}_username {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                font-size: 10px;
+                color: rgb(7, 17, 27);
+                line-height: 12px;
+                margin-bottom: 4px;
+                @at-root {
+                  #{&}_date {
+                    font-weight: 200;
+                    color: rgb(147, 153, 159);
+                  }
+                }
+              }
+              #{&}_score {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-bottom: 6px;
+                .stars {
+                  justify-content: flex-start !important;
+                }
+                @at-root {
+                  #{&}_deliverytime {
+                    font-size: 10px;
+                    font-weight: 200;
+                    color: rgb(147, 153, 159);
+                    line-height: 12px;
+                  }
+                }
+              }
+              #{&}_text {
+                font-size: 12px;
+                color: rgb(7, 17, 27);
+                line-height: 18px;
+                margin-bottom: 8px;
+              }
+              #{&}_recommend {
+                display: flex;
+                flex-direction: row;
+                align-content: center;
+                @at-root {
+                  #{&}_item {
+                    font-size: 9px;
+                    color: rgb(147, 153, 159);
+                    line-height: 16px;
+                    padding: 0 6px;
+                    margin-left: 8px;
+                    border: 1px solid rgba(7, 17, 27, 0.1);
+                    border-radius: 2px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .stars {
+    margin-right: 8px;
+  }
+
+  .icon-thumb_up {
+    font-size: 12px;
+    color: $shop-cart-active-background;
+    line-height: 16px;
+  }
+
+  .icon-thumb_down {
+    font-size: 12px;
+    color: rgb(183, 187, 191);
+    line-height: 16px;
+  }

@@ -1,0 +1,107 @@
+@import '../../common/scss/variables.scss';
+.rating {
+  text-align: left;
+  margin-left: 18px;
+  @at-root {
+    #{&}__type {
+      display: flex;
+      align-items: center;
+      margin-bottom: 18px;
+      @at-root {
+        #{&}-text {
+          box-sizing: border-box;
+          font-size: 12px;
+          font-weight: 500;
+          color: rgb(255, 255, 255);
+          line-height: 16px;
+          padding: 8px 12px;
+          color: rgb(77, 85, 93);
+          background: rgba(0, 160, 220, .2);
+          border-radius: 2px;
+          margin-right: 8px;
+          @at-root {
+            #{&}_i_1,
+            #{&}_i_2 {
+              &.active {
+                color: #fff;
+                background: $shop-cart-active-background;
+              }
+            }
+            #{&}_i_3 {
+              background: rgba(77, 85, 92, 0.2);
+              &.active {
+                color: #fff;
+                background: rgba(77, 85, 92, 1)
+              }
+            }
+          }
+        }
+      }
+    }
+    #{&}__filter {
+      padding: 12px 0;
+      border-top: 1px solid $line-color;
+      border-bottom: 1px solid $line-color;
+      color: $shop-cart-active-background;
+      font-size: 12px;
+    }
+    #{&}__filter_status_all {
+      color: rgb(147, 153, 159);
+    }
+    #{&}__comments {
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      @at-root {
+        #{&}-comment {
+          padding: 16px 0;
+          flex-flow: row;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid $line-color;
+          @at-root {
+            #{&}_left {
+              @at-root {
+                #{&}__date {
+                  font-size: 10px;
+                  color: rgb(147, 153, 159);
+                  line-height: 12px;
+                  margin-bottom: 6px;
+                }
+                #{&}__comment {
+                  font-size: 12px;
+                  color: rgb(7, 17, 27);
+                }
+              }
+            }
+            #{&}_right {
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 18px;
+              @at-root {
+                #{&}_username {
+                  font-size: 10px;
+                  color: rgb(147, 153, 159);
+                  line-height: 12px;
+                }
+                #{&}_avatar {
+                  width: 12px;
+                  height: 12px;
+                  border-radius: 50%;
+                  margin-left: 6px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    #{&}__no-comment {
+      padding: 16px 0;
+      font-size: 12px;
+      color: rgb(147, 153, 159);
+    }
+  }
+}

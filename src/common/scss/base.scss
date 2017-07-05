@@ -1,0 +1,35 @@
+body,
+html {
+  font-weight: 200;
+  line-height: 1;
+}
+
+.icon {
+  background-size: contain;
+  @at-root {
+    #{&}-decrease {
+      @extend .icon;
+      background: url('../../components/header/decrease_1@2x.png') no-repeat;
+    }
+    #{&}-discount {
+      @extend .icon;
+      background: url('../../components/header/discount_1@2x.png') no-repeat;
+    }
+    #{&}-guarantee {
+      @extend .icon;
+      background: url('../../components/header/guarantee_1@2x.png') no-repeat;
+    }
+    #{&}-invoice {
+      @extend .icon;
+      background: url('../../components/header/invoice_1@2x.png') no-repeat;
+    }
+    #{&}-special {
+      @extend .icon;
+      background: url('../../components/header/special_1@2x.png') no-repeat;
+    }
+  }
+}
+
+.animated {
+  animation-duration: 0.5s;
+}
