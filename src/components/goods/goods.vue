@@ -4,7 +4,7 @@
       <div class="menu" ref="menuScroll">
         <ul class="menu__goods">
           <li class="menu__goods_good" v-for="(good,index) in goods" ref="menuList" :class="{'menu-active':currentScreenIndex===index}"
-            v-on:click="skipToFoods(index, $event)">
+            v-on:click="skipToFoods(index, $event)" v-bind:key="good.name">
             <span class="menu__goods_good_text">
             <span v-if="good.type>0" class="menu__goods_good_icon" :class="'icon-'+clsMap[good.type]"></span>            {{good.name}}
             </span>
@@ -13,9 +13,9 @@
       </div>
       <div class="foods" ref="foodsScroll">
         <ul class="foods__goods-name">
-          <li v-for="(good,index) in goods" class="foods__goods-foods" ref="foodsList">
+          <li v-for="(good,index) in goods" class="foods__goods-foods" ref="foodsList" v-bind:key="good.name">
             <h1 class="foods__goods-foods_name">{{good.name}}</h1>
-            <div class="foods__goods-foods_food" v-for="(food,index) in good.foods">
+            <div class="foods__goods-foods_food" v-for="(food,index) in good.foods" v-bind:key="food.name">
               <img :src="food.image" alt="" class="foods__goods-foods_food_img">
               <div class="foods__goods-foods_food_desc" @click="renderSelectedFood(food)" >
                 <h2 class="foods__goods-foods_food_desc-name">{{food.name}}</h2>
